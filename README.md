@@ -16,7 +16,7 @@
 <ul>
   <li> Recycle Roundup - National Geographic Kids https://kids.nationalgeographic.com/games/action-adventure/article/recycle-roundup-new </li>
   <li> Reduce Reuse Recycle Game - Turtle Diary https://www.turtlediary.com/game/recycling-waste.html </li>
-<ul>
+</ul>
 <h3>Where we aim to improve</h3>
 <p>Most games fail to educate on the variability of recycling systems we use in the UK. Some places have 2 bins, some require sorting into 5 bins (Glass, aluminium/metal, Plastic, General Waste, Compost). The lack of reflection of this in these mainstream games means most will struggle adapting what they have learnt to real life. This will therefore have an impact on how much they recycle, as uncertaincy of correction will push them to the safe option of general waste.</p>
 <p>Our solution will aim to educate as much recycling nuance as possible (in a manner suitable for children). While making learning fun, we aim to be able to teach children every which way of how to recycle correctly! No matter the recycling system they will have to use, or how obscure and technical the waste is.</p>
