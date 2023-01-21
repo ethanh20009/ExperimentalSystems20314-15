@@ -10,6 +10,8 @@ public class binScript : MonoBehaviour
     [SerializeField]
     public float range = 0.2f;
     private pickupable[] currentItems;
+    [SerializeField]
+    ParticleSystem binExplosion;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class binScript : MonoBehaviour
                 GameObject toDelete = currentItems[i].gameObject;
                 litterTracker.removePickupable(currentItems[i]);
                 Destroy(toDelete);
+                binExplosion.Play();
             }
         }
     }
