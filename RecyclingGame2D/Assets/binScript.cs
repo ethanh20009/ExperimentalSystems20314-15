@@ -12,6 +12,13 @@ public class binScript : MonoBehaviour
     private pickupable[] currentItems;
     [SerializeField]
     ParticleSystem binExplosion;
+    [SerializeField]
+    ParticleSystem binCorrectExplosion;
+    [SerializeField]
+    RecyclingTypes recycleType;
+
+
+
     
     // Start is called before the first frame update
     void Start()
@@ -23,18 +30,35 @@ public class binScript : MonoBehaviour
     void Update()
     {
         currentItems = litterTracker.getPickupables().ToArray();
-        for (int i = 0; i < currentItems.Length; i++)
+        for (int i = 0; i < currentItems.Length; i++) //Check every pickupable's range
         {
             Vector3 dist = currentItems[i].transform.position - recycledPoint.position;
-            if (dist.magnitude < range)
+            if (dist.magnitude >= range) { continue; } //Check if in range of centre of bin (dropped in)
+            
+            //Destroy item (add points etc...)
+            GameObject toDelete = currentItems[i].gameObject;
+            recyclableObject recComp = toDelete.GetComponent<recyclableObject>();
+            if (recComp != null) //Is a recyclable object
             {
-                //Destroy item (add points etc...)
-                GameObject toDelete = currentItems[i].gameObject;
-                litterTracker.removePickupable(currentItems[i]);
-                Destroy(toDelete);
-                binExplosion.Play();
+                if (recComp.GetRecyclingType() == recycleType) //Recycled correctly
+                {
+                    binCorrectExplosion.Play();
+                }
+                else
+                {
+                    binExplosion.Play();
+
+                }
             }
+            litterTracker.removePickupable(currentItems[i]);
+            Destroy(toDelete);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color =new Color32(255, 0, 0, 200);
+        Gizmos.DrawSphere(recycledPoint.position, this.range);
     }
 }
 
@@ -58,3 +82,7 @@ public static class litterTracker
     }
 
 }
+
+
+
+
