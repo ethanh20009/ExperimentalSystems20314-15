@@ -12,7 +12,6 @@ public class pickupable : MonoBehaviour
         joint = GetComponent<TargetJoint2D>();
         joint.enabled = false;
         isHeld = false;
-        litterTracker.addPickupable(this);
     }
 
     // Update is called once per frame
