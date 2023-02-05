@@ -37,10 +37,10 @@ public class binScript : MonoBehaviour
             
             //Destroy item (add points etc...)
             GameObject toDelete = currentItems[i].gameObject;
-            recyclableObject recComp = toDelete.GetComponent<recyclableObject>();
-            if (recComp != null) //Is a recyclable object
+            recyclableObject recyclingComponent = toDelete.GetComponent<recyclableObject>();
+            if (recyclingComponent != null) //Is a recyclable object
             {
-                if (recComp.GetRecyclingType() == recycleType) //Recycled correctly
+                if (recyclingComponent.GetRecyclingType() == recycleType) //Recycled correctly
                 {
                     binCorrectExplosion.Play();
                 }
