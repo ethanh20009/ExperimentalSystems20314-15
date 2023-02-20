@@ -8,14 +8,23 @@ public class CompostGameState : MonoBehaviour
     private int highScore;
     void Start()
     {
-        score = 0;
+        /*score = 0;
         try
         {
-            highScore = SaveObjectBasic.DeserializeObjectFromFile<CompostSavedData>("compostSave.txt").getHighScore();
+            highScore = BFSaveSystem.LoadClass<CompostSavedData>("compostSave").getHighScore();
+            Debug.Log("Loaded stuff");
+            Debug.Log($"High score: {highScore}");
         }
         catch{
             highScore = 0;
-        }
+        }*/
+        score = 0;
+
+        CompostSavedData save = BFSaveSystem.LoadClass("compostSave");
+        highScore = save.getHighScore();
+        Debug.Log("Loaded stuff");
+        Debug.Log($"High score: {highScore}");
+
     }
 
     // Update is called once per frame
@@ -27,7 +36,7 @@ public class CompostGameState : MonoBehaviour
     private void OnApplicationQuit()
     {
         CompostSavedData data = new CompostSavedData(highScore);
-        SaveObjectBasic.SerializeObjectToFile<CompostSavedData>(data, "compostSave.txt");
+        BFSaveSystem.SaveClass(data, "compostSave.txt");
         Debug.Log("Saved");
     }
 
