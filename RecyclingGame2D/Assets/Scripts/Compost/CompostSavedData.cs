@@ -5,15 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class CompostSavedData
 {
-    private int highScore;
+    public int highScore;
     public CompostSavedData(int highScore)
     {
         this.highScore = highScore;
-    }
-
-    public int getHighScore()
-    {
-        return highScore;
     }
 
 }

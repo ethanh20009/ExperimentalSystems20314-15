@@ -20,10 +20,18 @@ public class CompostGameState : MonoBehaviour
         }*/
         score = 0;
 
-        CompostSavedData save = BFSaveSystem.LoadClass("compostSave");
-        highScore = save.getHighScore();
-        Debug.Log("Loaded stuff");
-        Debug.Log($"High score: {highScore}");
+        CompostSavedData save = BFSaveSystem.LoadClass<CompostSavedData>("compostSave");
+        if (save == null)
+        {
+            highScore = 0;
+        }
+        else
+        {
+            highScore = save.highScore;
+            Debug.Log("Loaded stuff");
+            Debug.Log($"High score: {highScore}");
+        }
+        
 
     }
 
@@ -36,8 +44,9 @@ public class CompostGameState : MonoBehaviour
     private void OnApplicationQuit()
     {
         CompostSavedData data = new CompostSavedData(highScore);
-        BFSaveSystem.SaveClass(data, "compostSave.txt");
+        BFSaveSystem.SaveClass(data, "compostSave");
         Debug.Log("Saved");
+        Debug.Log(data.highScore);
     }
 
     public void updateScore(int value)

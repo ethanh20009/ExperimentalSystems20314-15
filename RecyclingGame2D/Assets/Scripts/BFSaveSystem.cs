@@ -6,7 +6,7 @@ using System.IO;
 
 public static class BFSaveSystem
 {
-    public static void SaveClass(CompostSavedData objectToSave, string filename)
+    public static void SaveClass<T>(T objectToSave, string filename)
     {
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/" + filename + ".fun";
@@ -15,16 +15,18 @@ public static class BFSaveSystem
         fileStream.Close();
     }
 
-    public static CompostSavedData LoadClass(string filename)
+    public static T LoadClass<T>(string filename) where T : class
     {
         string path = Application.persistentDataPath + "/" + filename + ".fun";
         if (!File.Exists(path))
         {
-            return null;
+            Debug.Log("File not found");
+            return default(T);
         }
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fileStream = new FileStream(path, FileMode.Open);
-        CompostSavedData objectRead = bf.Deserialize(fileStream) as CompostSavedData;
+        T objectRead = bf.Deserialize(fileStream) as T;
+        fileStream.Close();
         return objectRead;
     }
 }
