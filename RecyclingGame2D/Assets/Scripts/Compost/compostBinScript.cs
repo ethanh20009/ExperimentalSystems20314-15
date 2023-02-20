@@ -12,6 +12,8 @@ public class compostBinScript : MonoBehaviour
     public ParticleSystem correctEffect;
     [SerializeField]
     public ParticleSystem wrongEffect;
+    [SerializeField]
+    public CompostGameState manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +43,8 @@ public class compostBinScript : MonoBehaviour
         }
         else { wrongEffect.Play(); }
         Destroy(collision.gameObject);
+        manager.updateScore(1);
     }
+
+
 }
