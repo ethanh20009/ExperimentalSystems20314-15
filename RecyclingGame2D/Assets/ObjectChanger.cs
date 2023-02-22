@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class ObjectChanger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string collisionObject;
+    public GameObject Spawn;
+    public GameObject Target;
 
-    // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("collision");
+        if (other.gameObject.name == collisionObject)
+        {
+            Destroy(other.gameObject);
+            ObjectSpawner os = gameObject.GetComponent<ObjectSpawner>();
+            os.ObjecttoSpawn = Spawn;
+            os.Target = Target;
+            os.CreateObject();
+        }
     }
 }
