@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    public GameObject ObjecttoSpawn;
+    //public GameObject ObjecttoSpawn;
     public int objects_created = 0;
     int object_limit = 1;
 
@@ -13,7 +13,7 @@ public class ObjectSpawner : MonoBehaviour
     {
     }
 
-    public void CreateObject()
+    public void CreateObject(GameObject ObjecttoSpawn)
     {
         if (objects_created < object_limit)
         {

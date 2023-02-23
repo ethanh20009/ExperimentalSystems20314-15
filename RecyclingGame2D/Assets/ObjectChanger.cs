@@ -6,6 +6,7 @@ public class ObjectChanger : MonoBehaviour
 {
     public string collisionObject;
     public GameObject Spawn;
+    ObjectSpawner os;
 
     void Update()
     {
@@ -17,9 +18,8 @@ public class ObjectChanger : MonoBehaviour
         if (other.gameObject.name == collisionObject)
         {
             Destroy(other.gameObject);
-            ObjectSpawner os = gameObject.GetComponent<ObjectSpawner>();
-            os.ObjecttoSpawn = Spawn;
-            os.CreateObject();
+            GameObject newObject = Instantiate(Spawn, transform.position, Quaternion.identity);
+            os.objects_created = 0;
         }
     }
 }
