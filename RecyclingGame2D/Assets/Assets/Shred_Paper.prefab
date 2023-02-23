@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6015237651409812138
 Transform:
@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3bb8ac91461b642a009012b834a45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedObject: {fileID: 0}
+  selectedObject: {fileID: 6144008635189268456}
+  currentObject: {fileID: 6144008635189268456}
 --- !u!50 &-3685721324268169937
 Rigidbody2D:
   serializedVersion: 4

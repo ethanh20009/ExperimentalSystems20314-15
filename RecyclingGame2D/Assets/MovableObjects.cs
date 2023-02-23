@@ -6,8 +6,13 @@ public class MovableObjects : MonoBehaviour
 {
     public GameObject selectedObject;
     Vector3 offset;
+
     void Update()
     {
+        if (transform.position.z != 0)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y);
+        }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {

@@ -6,7 +6,6 @@ public class ObjectChanger : MonoBehaviour
 {
     public string collisionObject;
     public GameObject Spawn;
-    public GameObject Target;
 
     void Update()
     {
@@ -20,7 +19,6 @@ public class ObjectChanger : MonoBehaviour
             Destroy(other.gameObject);
             ObjectSpawner os = gameObject.GetComponent<ObjectSpawner>();
             os.ObjecttoSpawn = Spawn;
-            os.Target = Target;
             os.CreateObject();
         }
     }
