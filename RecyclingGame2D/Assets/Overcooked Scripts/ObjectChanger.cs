@@ -24,7 +24,7 @@ public class ObjectChanger : MonoBehaviour
         }
         else
         {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
             gameObject.GetComponent<ParticleSystem>().Play();
         }
     }
