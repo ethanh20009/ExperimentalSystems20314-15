@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 807db8eec56d9df498842a5f671bf4c1
+  - enabled: 0
+    path: Assets/Scenes/RecyclingMinigame.unity
+    guid: 8817f97a836a42e4483fccbb33c397eb
   m_configObjects: {}
