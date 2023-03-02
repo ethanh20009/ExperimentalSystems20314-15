@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BackgroundTile
   layers:
   - Default
   - TransparentFX
@@ -38,6 +39,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: wall
+    uniqueID: 1235155519
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 282926687
+    locked: 0
+  - name: Foreground
+    uniqueID: 1539644993
+    locked: 0
+  - name: Conveyor_Belt
+    uniqueID: 3713323661
+    locked: 0
+  - name: Items
+    uniqueID: 4017713237
+    locked: 0
+  - name: Bin_Layer
+    uniqueID: 305858981
+    locked: 0
+  - name: Front
+    uniqueID: 2047770773
     locked: 0
