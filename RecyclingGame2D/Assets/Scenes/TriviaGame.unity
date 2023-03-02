@@ -658,21 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20dca46ecf82e1419b129d326d949ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QA:
-  - Question: What day is it?
-    Answers:
-    - Wednesday
-    - Friday
-    - Saturday
-    - Monday
-    CorrectAnswer: 3
-  - Question: What time is it?
-    Answers:
-    - 2am
-    - 3am
-    - 4am
-    - 6pm
-    CorrectAnswer: 4
+  QA: []
   options:
   - {fileID: 113788087}
   - {fileID: 736627366}

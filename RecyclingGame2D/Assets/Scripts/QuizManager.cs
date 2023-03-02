@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using Random = UnityEngine.Random;
 
 public class QuizManager : MonoBehaviour
 {
@@ -13,6 +15,22 @@ public class QuizManager : MonoBehaviour
 
     private void Start()
     {
+        ReadCSV readCSV = new ReadCSV();
+        CSVObject Data = readCSV.Read(@"C:\Users\jerem\OneDrive\Documents\GitHub\ExperimentalSystems20314-15\RecyclingGame2D\Assets\Scripts\QAData.csv");
+        for (int i = 0; i < Data.data.Count; i++)
+        {
+            QuestionAndAnswers qa = new QuestionAndAnswers();
+            qa.Question = Data.data[i][0];
+            Debug.Log(qa.Question);
+            qa.Answers[0] = Data.data[i][1];
+            qa.Answers[1] = Data.data[i][2];
+            qa.Answers[2] = Data.data[i][3];
+            qa.Answers[3] = Data.data[i][4];
+            qa.CorrectAnswer = Convert.ToInt32(Data.data[i][5]);
+            Debug.Log(qa.Answers[3]);
+            QA.Add(qa);      
+        }
+        Debug.Log(QA[0].Question);
         generateQuestion();
     }
 
@@ -29,8 +47,8 @@ public class QuizManager : MonoBehaviour
         {
             options[i].GetComponent<AnswerScript>().isCorrect = false;
             options[i].transform.GetChild(0).GetComponent<Text>().text = QA[currentQuestion].Answers[i];
-        
-            if(QA[currentQuestion].CorrectAnswer == i+1)
+
+            if (QA[currentQuestion].CorrectAnswer == i+1)
             {
                 options[i].GetComponent<AnswerScript>().isCorrect = true;
             }
