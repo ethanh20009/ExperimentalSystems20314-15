@@ -1,0 +1,11 @@
+wed 22/02 - Proof of concept and understanding what it is I am doing
+
+sat 25/02 - Making sprites and file structure for items to recycle
+
+sun 26/02 - Figuring out how to use the file structure to import sprites
+
+mon 27/02 - made function to import sprites from file structure and it works
+
+tue 28/02 - actually randomised it, but onMouseDown() not work anymore
+
+jake says to use prefab
