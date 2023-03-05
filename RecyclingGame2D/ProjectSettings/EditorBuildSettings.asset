@@ -14,4 +14,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RecyclingMinigame.unity
     guid: 8817f97a836a42e4483fccbb33c397eb
+  - enabled: 1
+    path: Assets/Scenes/CompostMinigame.unity
+    guid: 8ba5b65fefb75384d8d4fd9054fc3e28
+  - enabled: 1
+    path: Assets/Scenes/Overcooked Minigame.unity
+    guid: b0c8fd722acceb445ac3b24806b0d832
+  - enabled: 1
+    path: Assets/Scenes/TriviaGame.unity
+    guid: 3acdd62773669934db56af45309eb614
+  - enabled: 1
+    path: Assets/Scenes/ConveyorBelt.unity
+    guid: 07cd66608471ab64a909477ea01c2c0c
   m_configObjects: {}
