@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 using Random = UnityEngine.Random;
 
 public class QuizManager : MonoBehaviour
@@ -15,8 +16,9 @@ public class QuizManager : MonoBehaviour
 
     private void Start()
     {
+        string qaPath = Directory.GetCurrentDirectory() + @"\Assets\Scripts\QAData.csv";
         ReadCSV readCSV = new ReadCSV();
-        CSVObject Data = readCSV.Read(@"C:\Users\jerem\OneDrive\Documents\GitHub\ExperimentalSystems20314-15\RecyclingGame2D\Assets\Scripts\QAData.csv");
+        CSVObject Data = readCSV.Read(qaPath);
         for (int i = 0; i < Data.data.Count; i++)
         {
             QuestionAndAnswers qa = new QuestionAndAnswers();
