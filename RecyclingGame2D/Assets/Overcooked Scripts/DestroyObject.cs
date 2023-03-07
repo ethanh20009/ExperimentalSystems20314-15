@@ -8,12 +8,13 @@ public class DestroyObject : MonoBehaviour
 
     void Update()
     {
+        os = GameObject.Find("GameObject").GetComponent<ObjectSpawner>();
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("collision");
-        Destroy(other.gameObject);
         os.objects_created = 0;
+        Destroy(other.gameObject);
     }
 }
