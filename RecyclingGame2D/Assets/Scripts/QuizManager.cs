@@ -36,8 +36,22 @@ public class QuizManager : MonoBehaviour
         generateQuestion();
     }
 
-    public void correct()
+    public void correct(int optionNum)
     {
+        options[optionNum].GetComponent<Image>().color = Color.green;
+        StartCoroutine(BackToWhite(optionNum));
+    }
+
+    public void incorrect(int optionNum)
+    {
+        options[optionNum].GetComponent<Image>().color = Color.red;
+        StartCoroutine(BackToWhite(optionNum));
+    }
+
+    IEnumerator BackToWhite(int optionNum)
+    {
+        yield return new WaitForSeconds(1);
+        options[optionNum].GetComponent<Image>().color = Color.white;
         QA.RemoveAt(currentQuestion);
         generateQuestion();
     }
@@ -48,6 +62,7 @@ public class QuizManager : MonoBehaviour
         for (int i = 0; i < options.Length; i++)
         {
             options[i].GetComponent<AnswerScript>().isCorrect = false;
+            options[i].GetComponent<AnswerScript>().optionNumber = i;
             options[i].transform.GetChild(0).GetComponent<Text>().text = QA[currentQuestion].Answers[i];
 
             if (QA[currentQuestion].CorrectAnswer == i+1)

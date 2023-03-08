@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnswerScript : MonoBehaviour
 {
+    public int optionNumber;
     public bool isCorrect = false;
     public QuizManager quizManager;
 
@@ -12,12 +13,13 @@ public class AnswerScript : MonoBehaviour
         if (isCorrect)
         {
             Debug.Log("Correct Answer");
-            quizManager.correct();
+            quizManager.correct(optionNumber);
         }
         else
         {
+
             Debug.Log("Wrong Answer");
-            quizManager.correct();
+            quizManager.incorrect(optionNumber);
         }
     }
 }
