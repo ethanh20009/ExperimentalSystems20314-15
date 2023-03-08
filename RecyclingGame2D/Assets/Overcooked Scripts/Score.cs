@@ -1,15 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    //private int Score;
-    //public TextMeshProUGUI scoreText;
+    private int score = 0;
+    [SerializeField] private Text _scoreText;
+    Objective ob;
+
 
     void Start()
     {
-        //Score = 0;
-        //scoreText.text = "Score: " + Score;
+        _scoreText = "Score: " + score;
+    }
+
+    void Update()
+    {
+        ob = GameObject.Find("Submit").GetComponent<Objective>();
+        if (score != ob.Score)
+        {
+            score = ob.Score;
+            _scoreText = "Score: " + score;
+        }
+
     }
 }
