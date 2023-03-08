@@ -12,7 +12,7 @@ public class Score : MonoBehaviour
 
     void Start()
     {
-        _scoreText = "Score: " + score;
+        _scoreText.text = "Score: " + score;
     }
 
     void Update()
@@ -21,7 +21,7 @@ public class Score : MonoBehaviour
         if (score != ob.Score)
         {
             score = ob.Score;
-            _scoreText = "Score: " + score;
+            _scoreText.text = "Score: " + score;
         }
 
     }
