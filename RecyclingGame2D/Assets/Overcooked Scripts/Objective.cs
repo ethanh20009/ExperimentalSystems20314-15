@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Objective : MonoBehaviour
 {
+    public ParticleSystem yourParticleSystem;
     public string[] Objectives = new string[] { "Toilet_Roll","new_glass","Brick","Spray_bottle" };
     SpriteChanger sc;
     ObjectSpawner os;
@@ -31,6 +32,7 @@ public class Objective : MonoBehaviour
         if (other.gameObject.name == collisionObject + "(Clone)")
         {
             Debug.Log("correct");
+            yourParticleSystem.Play();
             Score += 1;
             Destroy(other.gameObject);
             os.objects_created = 0;

@@ -23,11 +23,7 @@ public class MovableObjects : MonoBehaviour
                 offset = selectedObject.transform.position - mousePosition;
             }
         }
-        if (selectedObject.isStatic)
-        {
-            Debug.Log("Static");
-        }
-        else if (selectedObject)
+        if (selectedObject)
         {
             selectedObject.transform.position = mousePosition + offset;
         }
