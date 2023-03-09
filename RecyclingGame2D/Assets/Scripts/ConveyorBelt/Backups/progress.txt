@@ -8,4 +8,10 @@ mon 27/02 - made function to import sprites from file structure and it works
 
 tue 28/02 - actually randomised it, but onMouseDown() not work anymore
 
-jake says to use prefab
+thu 02/03 - implement prefabs so items correctly self destruct
+
+sat 04/03 - figured out how to use OnTriggerEnter2D() to create bin shaders
+
+wed 08/03 - figured out the scoring system backend
+
+the start might explain the lagging https://www.youtube.com/watch?v=MfKyUkZb1V4&t=30s

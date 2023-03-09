@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8367204813099744480}
   - component: {fileID: 8367204813099744413}
   - component: {fileID: 8367204813099744412}
-  - component: {fileID: 8367204813099744482}
   - component: {fileID: 8535920616533673524}
   m_Layer: 0
   m_Name: recyclingPrefab
@@ -131,22 +130,10 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!114 &8367204813099744482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8367204813099744411}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6766b28f0696b0647a71d2c183daf7d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8535920616533673524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d40f2bdd76bd542a5591f369f182d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctSprite: {fileID: 21300000, guid: ebadf92d140f23846a70382fd340e3fe, type: 3}
-  incorrectSprite: {fileID: 21300000, guid: aeacce4f05a667741a8d1f4ea3c3d5f5, type: 3}
+  correctPrefab: {fileID: 2361368573018732014, guid: 42bed96ac5acdb449b2602c2d1fe98cf, type: 3}
+  incorrectPrefab: {fileID: 5489957617480697304, guid: 33c463baa9dd3224ca33af84bb3940bd, type: 3}

@@ -13,20 +13,24 @@ public class SpawnRandomPoint : MonoBehaviour
     public System.Random randomDecider = new System.Random();
     public GameObject RecyclingPrefab;
 
+    private int hearts = 5, maxHearts = 5;
+    private int score = 0;
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        itemDecider();
+        
     }
 
     
     void FixedUpdate()
     {
         //var goOrStayDecider = new System.Random();
-        int goOrStay = randomDecider.Next(200);
+        int goOrStay = randomDecider.Next(120 - score );
 
-        if (goOrStay == 100)
+        if (goOrStay == 0)
         {
             itemDecider();
         }
@@ -46,7 +50,7 @@ public class SpawnRandomPoint : MonoBehaviour
 
 
         recyclingItem.transform.position = itemsSpawnPosition; // remember to change according to bin
-        recyclingItem.GetComponent<Rigidbody2D>().drag = dragFactor;
+        recyclingItem.GetComponent<Rigidbody2D>().drag = dragFactor; 
         recyclingItem.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Items");
         // something to change the sprite
         recyclingItem.GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(recyclingItemsPath + spriteLocationEnding); //add specific
@@ -130,10 +134,44 @@ public class SpawnRandomPoint : MonoBehaviour
     void instantiateRecyclingItem(string objectName, string spriteLocationEnding, Vector2 itemsSpawnPosition, string itemTypeName, float dragFactor = 6.0f)
     {
         string recyclingItemsPath = Application.dataPath + "/Sprites/conveyorBeltMinigame/RecyclingItems";
-        GameObject recycleItem = Instantiate(RecyclingPrefab, itemsSpawnPosition, Quaternion.identity);
-        recycleItem.name = itemTypeName;
+        GameObject recycleItem = Instantiate(RecyclingPrefab, itemsSpawnPosition, Quaternion.identity);        
         recycleItem.GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(recyclingItemsPath + spriteLocationEnding);
+        recycleItem.GetComponent<Rigidbody2D>().drag = (float)(2.0 + (5.0 * Math.Exp(-(0.02 * (double)score)))); // drag starts at 7(=5+2) goes to 2 and about a score of 100. Equation  = 2+5e^(-(0.02*score)^2), change score to be lower
+        recycleItem.name = itemTypeName;
 
+    }
+
+    public void plusHearts()
+    {
+        //only for heart bonuses
+        if (hearts < maxHearts)
+        {
+            hearts++;
+        }
+        Debug.Log("more hearts = " + hearts);
+        // change hearts on screen
+    }
+
+    public void minusHearts()
+    {
+        if (hearts > 1)
+        {
+            hearts--;
+        }
+        else if (hearts == 1)
+        {
+            // game over
+            Debug.Log("game_over");
+        }
+        //Debug.Log("less hearts = " + hearts);
+        // change hearts on screen
+    }
+
+    public void plusScore()
+    {
+        score++;
+        Debug.Log("score = " + score);
+        // change score on screen
     }
 
 }
