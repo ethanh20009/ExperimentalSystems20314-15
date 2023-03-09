@@ -20,12 +20,6 @@ public class ObjectChanger : MonoBehaviour
             Destroy(other.gameObject);
             GameObject newObject = Instantiate(Spawn, transform.position, Quaternion.identity);
             os.objects_created = 0;
-            gameObject.GetComponent<ParticleSystem>().Play();
-        }
-        else
-        {
-            //Destroy(other.gameObject);
-            gameObject.GetComponent<ParticleSystem>().Play();
         }
     }
 }
