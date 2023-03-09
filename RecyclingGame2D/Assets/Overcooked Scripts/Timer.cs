@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI _timerText;
     [SerializeField] TextMeshProUGUI _GameOverText;
     public GameObject Submit;
+    Objective ob;
+
 
     void Start()
     {
@@ -33,10 +36,20 @@ public class Timer : MonoBehaviour
 
     }
 
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(5);
+
+        SceneManager.LoadScene(1);
+    }
+
     void timerEnded()
     {
+        ob = GameObject.Find("Submit").GetComponent<Objective>();
         _GameOverText.gameObject.SetActive(true);
         Submit.gameObject.SetActive(false);
+        BFSaveSystem.SaveClass(ob.Score.ToString(),"HS2");
+        StartCoroutine(wait());
     }
 
 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -9218550309717146984}
   m_Layer: 0
   m_Name: Spray_bottle
-  m_TagString: Untagged
+  m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
