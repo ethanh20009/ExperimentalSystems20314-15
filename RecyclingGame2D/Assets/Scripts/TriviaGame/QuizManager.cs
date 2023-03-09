@@ -20,9 +20,13 @@ public class QuizManager : MonoBehaviour
 
     private void Start()
     {
-        string qaPath = Directory.GetCurrentDirectory() + @"\Assets\Scripts\TriviaGame\QAData.csv";
-        ReadCSV readCSV = new ReadCSV();
-        CSVObject Data = readCSV.Read(qaPath);
+        string qaPath = "Trivia/QAData";
+        TextAsset qaFile = Resources.Load<TextAsset>(qaPath);
+        Debug.Log(qaFile.ToString());
+
+        ParseCSV readCSV = new ParseCSV();
+        CSVObject Data = readCSV.Read(qaFile.ToString());
+        Debug.Log(Data.data);
         for (int i = 0; i < Data.data.Count; i++)
         {
             QuestionAndAnswers qa = new QuestionAndAnswers();
