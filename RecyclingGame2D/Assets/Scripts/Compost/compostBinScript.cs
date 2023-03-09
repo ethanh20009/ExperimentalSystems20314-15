@@ -40,10 +40,10 @@ public class compostBinScript : MonoBehaviour
         {
             //Correct
             correctEffect.Play();
+            manager.updateScore(1);
         }
         else { wrongEffect.Play(); }
         Destroy(collision.gameObject);
-        manager.updateScore(1);
     }
 
 
