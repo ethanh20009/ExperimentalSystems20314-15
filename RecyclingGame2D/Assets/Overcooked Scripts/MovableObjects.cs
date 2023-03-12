@@ -11,7 +11,7 @@ public class MovableObjects : MonoBehaviour
     {
         if (transform.position.z != 0)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y);
+            transform.position = new Vector3(transform.position.x, transform.position.y);
         }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
@@ -23,7 +23,7 @@ public class MovableObjects : MonoBehaviour
                 offset = selectedObject.transform.position - mousePosition;
             }
         }
-        if (selectedObject)
+        if (selectedObject.tag == "item" && selectedObject)
         {
             selectedObject.transform.position = mousePosition + offset;
         }

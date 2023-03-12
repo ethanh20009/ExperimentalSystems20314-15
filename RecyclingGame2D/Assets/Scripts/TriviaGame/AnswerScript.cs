@@ -6,20 +6,26 @@ public class AnswerScript : MonoBehaviour
 {
     public int optionNumber;
     public bool isCorrect = false;
+    public bool buttonEnabled = true;
     public QuizManager quizManager;
 
     public void Answer()
     {
-        if (isCorrect)
+        Debug.Log(buttonEnabled);
+        if (buttonEnabled)
         {
-            Debug.Log("Correct Answer");
-            quizManager.correct(optionNumber);
-        }
-        else
-        {
+            quizManager.toggleButtons();
+            if (isCorrect)
+            {
+                Debug.Log("Correct Answer");
+                quizManager.correct(optionNumber);
+            }
+            else
+            {
 
-            Debug.Log("Wrong Answer");
-            quizManager.incorrect(optionNumber);
+                Debug.Log("Wrong Answer");
+                quizManager.incorrect(optionNumber);
+            }
         }
     }
 }

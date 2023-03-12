@@ -14,30 +14,31 @@ public class QuizManager : MonoBehaviour
     public int score = 0;
     public CorrectPlayer correctPlayer;
     public IncorrectPlayer incorrectPlayer;
+    public bool buttonsEnabled;
    
     public Text QuestionTxt;
     public Text Score;
 
     private void Start()
     {
-        string qaPath = Directory.GetCurrentDirectory() + @"\Assets\Scripts\TriviaGame\QAData.csv";
-        ReadCSV readCSV = new ReadCSV();
-        CSVObject Data = readCSV.Read(qaPath);
+        string qaPath = "Trivia/QAData";
+        TextAsset qaFile = Resources.Load<TextAsset>(qaPath);
+
+        ParseCSV readCSV = new ParseCSV();
+        CSVObject Data = readCSV.Read(qaFile.ToString());
         for (int i = 0; i < Data.data.Count; i++)
         {
             QuestionAndAnswers qa = new QuestionAndAnswers();
             qa.Question = Data.data[i][0];
-            Debug.Log(qa.Question);
             qa.Answers[0] = Data.data[i][1];
             qa.Answers[1] = Data.data[i][2];
             qa.Answers[2] = Data.data[i][3];
             qa.Answers[3] = Data.data[i][4];
             qa.CorrectAnswer = Convert.ToInt32(Data.data[i][5]);
-            Debug.Log(qa.Answers[3]);
             QA.Add(qa);      
         }
-        Debug.Log(QA[0].Question);
         Score.text = score.ToString();
+        buttonsEnabled = true;
         generateQuestion();
     }
 
@@ -62,9 +63,18 @@ public class QuizManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         options[optionNum].GetComponent<Image>().color = Color.white;
         QA.RemoveAt(currentQuestion);
+        toggleButtons();
         generateQuestion();
     }
 
+    public void toggleButtons()
+    {
+        buttonsEnabled = !buttonsEnabled;
+        for (int i = 0; i < options.Length; i++)
+        {
+            options[i].GetComponent<AnswerScript>().buttonEnabled = buttonsEnabled;
+        }
+    }
 
     void SetAnswers()
     {
