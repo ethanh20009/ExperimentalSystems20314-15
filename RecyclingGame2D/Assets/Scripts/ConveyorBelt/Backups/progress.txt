@@ -14,4 +14,8 @@ sat 04/03 - figured out how to use OnTriggerEnter2D() to create bin shaders
 
 wed 08/03 - figured out the scoring system backend
 
+fri 10/03 - resized things
+
 the start might explain the lagging https://www.youtube.com/watch?v=MfKyUkZb1V4&t=30s
+
+text updating  = https://www.youtube.com/watch?v=LuAAzNDhVko&t=165s

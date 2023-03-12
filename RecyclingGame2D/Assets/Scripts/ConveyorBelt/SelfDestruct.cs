@@ -13,7 +13,7 @@ public class SelfDestruct : MonoBehaviour
     void Start()
     {
         //to automatically destroy itself after a while of being in the game
-        Destroy(gameObject,8);
+        //Destroy(gameObject,8);
     }
 
     // Update is called once per frame
@@ -26,11 +26,15 @@ public class SelfDestruct : MonoBehaviour
     {
         // if destroyed correctly switch sprite to a x
         // if incorrectly switch to tick
+        // if heart bonus then more life
+
+        // destroying the object
+        Destroy(gameObject);
+
         if (gameObject.name == "correct")
         {
             // remember this item was on its way to the correct bin, eliminating it is the wrong thing to do
-            GameObject result = Instantiate(incorrectPrefab, transform.position, Quaternion.identity);//remember you switched
-            Destroy(gameObject);
+            GameObject result = Instantiate(incorrectPrefab, transform.position, Quaternion.identity);//remember you switched            
             Destroy(result, 1);
             
         }
@@ -38,16 +42,24 @@ public class SelfDestruct : MonoBehaviour
         {
             // remember this item was on its way to the incorrect bin, eliminating it is the right thing to do
             // which their score increases for
-            GameObject result = Instantiate(correctPrefab, transform.position, Quaternion.identity); // remember you switched
-            Destroy(gameObject);
+            GameObject result = Instantiate(correctPrefab, transform.position, Quaternion.identity); // remember you switched         
             Destroy(result, 1);
 
             spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
             spawnRandomPoint.plusScore();
 
         }
+        else if (gameObject.name == "heart")
+        {
+            spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
+            spawnRandomPoint.plusHearts();                    
+        }
+
         
-        
+
+
+
+
     }
 
     
