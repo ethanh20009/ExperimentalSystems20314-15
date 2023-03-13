@@ -23,10 +23,18 @@ public static class BFSaveSystem
             Debug.Log("File not found");
             return default(T);
         }
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream fileStream = new FileStream(path, FileMode.Open);
-        T objectRead = bf.Deserialize(fileStream) as T;
-        fileStream.Close();
-        return objectRead;
+        try
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fileStream = new FileStream(path, FileMode.Open);
+            T objectRead = bf.Deserialize(fileStream) as T;
+            fileStream.Close();
+            return objectRead;
+
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
