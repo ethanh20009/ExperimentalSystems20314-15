@@ -11,8 +11,10 @@ public class Timer : MonoBehaviour
     public float targetTime = 60.0f;
     [SerializeField] TextMeshProUGUI _timerText;
     [SerializeField] TextMeshProUGUI _GameOverText;
+    [SerializeField] GameObject _ExitButton;
     public GameObject Submit;
     Objective ob;
+    
 
 
     void Start()
@@ -40,11 +42,13 @@ public class Timer : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
+
     }
 
     void timerEnded()
     {
+        _ExitButton.gameObject.SetActive(false);
         ob = GameObject.Find("Submit").GetComponent<Objective>();
         _GameOverText.gameObject.SetActive(true);
         Submit.gameObject.SetActive(false);
