@@ -1,85 +1,64 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-//using UnityEngine.UI;
-
 using System.IO;
 using System.Linq;
-using System;
+using System.Threading.Tasks;
+
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SpawnRandomPoint : MonoBehaviour
-{
-    //public List<GameObject> ItemsToRecycle;    
+{   
     public GameObject RecyclingPrefab;
     public GameObject liveHeartPrefab;
     public GameObject deadHeartPrefab;
+    public GameObject gameOverPrefab;
+    public GameObject gameRulesPrefab;
     public TMP_Text scoreValue;
 
     private System.Random randomDecider = new System.Random();
-    private int maxHearts = 6;
+    private int maxHearts = 5;
     private int hearts;
     private int score = 0;
-    //private GameObject[] cubes = new GameObject[];
-    //private GameObject[] heartObjects;
-
 
     // Start is called before the first frame update
     void Start()
     {
         createHearts();
+        GameObject gameRulesScreen = Instantiate(gameRulesPrefab, new Vector2(0, 0), Quaternion.identity);
+        Destroy(gameRulesScreen, 4);
     }
 
     
     void FixedUpdate()
     {
-        //var goOrStayDecider = new System.Random();
-        int goOrStay = randomDecider.Next(115 - score );
+        int goOrStay;
+        if (score < 100)
+        {
+            goOrStay = randomDecider.Next(180 - score);
+        }
+        else
+        {
+            goOrStay = randomDecider.Next(100);
+        }
+        
 
-        if (goOrStay == 0)
+        if (goOrStay < 2 )
         {
             itemDecider();
         }
     }
 
-    void createItem(string objectName , string spriteLocationEnding, Vector2 itemsSpawnPosition, string itemTypeName, float dragFactor = 6.0f)
-    {
-        GameObject recyclingItem = new GameObject();
-        string recyclingItemsPath = Application.dataPath + "/Sprites/conveyorBeltMinigame/RecyclingItems";
-        recyclingItem.name = objectName;
-
-
-        recyclingItem.AddComponent<SpriteRenderer>();
-        recyclingItem.AddComponent<BoxCollider2D>();
-        recyclingItem.AddComponent<SelfDestructConcept>();        
-        recyclingItem.AddComponent<Rigidbody2D>();
-
-
-        recyclingItem.transform.position = itemsSpawnPosition; // remember to change according to bin
-        recyclingItem.GetComponent<Rigidbody2D>().drag = dragFactor; 
-        recyclingItem.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Items");
-        // something to change the sprite
-        recyclingItem.GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(recyclingItemsPath + spriteLocationEnding); //add specific
-
-        Destroy(recyclingItem, 15); // remember to fix
-        //ItemsToRecycle.Add(recyclingItem);
-    }
 
     void itemDecider()
     {
-        // remember to return nameItem, itemType and sprite
-        // var rnd = new System.Random(); // random seed generator // if it don't work use Random.Range();
-
         // the following lines could be automated, but decided not to, for time efficiency
         string[] bins = { "food", "general", "glass", "paper", "plastic" };        
         int binsLength = bins.Length; // just to stop repeated calls
-        int totalItemsPerBin = 3; // number of items in each bin folder
+        int totalItemsPerBin = 5; // number of items in each bin folder
         float[] itemsSpawnPositions = { -10.0f, -5.0f, 0.0f, 5.0f, 10.0f };
-
-        //string recyclingItemsPath = Application.dataPath + "/Sprites/conveyorBeltMinigame/RecyclingItems";
-        //float offPosition = -0.5f;
-        //Vector2[] itemsSpawnPositions = { new Vector2(-10 + offPosition, 6), new Vector2(-5 + offPosition, 6 ), new Vector2(0 + offPosition, 6), new Vector2(5 + offPosition, 6), new Vector2(-10 + offPosition, 6) };
 
         //choosing random item
         string itemFrom = ""; //set later, this is the bin the item should actually go to
@@ -89,7 +68,7 @@ public class SpawnRandomPoint : MonoBehaviour
         int itemType = randomDecider.Next(-7,6); // chooses whether the item is incorrect (-ve), correct(+ve) or bonus(0) // more incorrect than correct
         int itemIndex = randomDecider.Next(totalItemsPerBin); //chooses which item in the bin
         int offset = randomDecider.Next(1, binsLength); // if we want an incorrect(-ve) itemType, the offset (mod(bin.Length)) chooses which bin the sprite is from 
-        int offsetHeight = randomDecider.Next(9,13);
+        int offsetHeight = randomDecider.Next(10,13);
 
         if (itemType == 0)
         {
@@ -115,15 +94,7 @@ public class SpawnRandomPoint : MonoBehaviour
             //objectName = itemFrom + "_" + itemIndex;
             spriteLocationEnding = "/" + itemFrom + "/" + itemIndex + ".png";
         }
-
-        //string objectName = itemFrom + "_" + itemIndex;
-        //string spriteLocationEnding = "/" + itemFrom + "/" + itemIndex + ".png";
-
         instantiateRecyclingItem(spriteLocationEnding, new Vector2(itemsSpawnPositions[goToBin], offsetHeight), itemTypeName);
-
-        //createItem(objectName , spriteLocationEnding, new Vector2(itemsSpawnPositions[goToBin], offsetHeight), itemTypeName);
-        // name, sprite address, spawnpoint, itemType, dragFactor
-
     }
     
     public Sprite getRecyclingSprite(string FilePath)
@@ -176,7 +147,13 @@ public class SpawnRandomPoint : MonoBehaviour
 
         if (hearts == 0)
         {
-            Debug.Log("game_over");
+            // giving user time to realise game is over
+            GameObject gameOverScreen = Instantiate(gameOverPrefab, new Vector2(0,0), Quaternion.identity);            
+            var delay = Task.Run(async () => {
+                GameObject gameOverScreen = Instantiate(gameOverPrefab, new Vector2(0, 0), Quaternion.identity);                
+                await Task.Delay(20000);                
+            });
+
             SceneManager.LoadScene(0);
         }
     }
@@ -199,10 +176,9 @@ public class SpawnRandomPoint : MonoBehaviour
 
     public void plusScore()
     {
+        // updates score on screen
         score++;
         scoreValue.text = score.ToString();
-        //Debug.Log("score = " + score);
-        // change score on screen
     }
 
 }

@@ -30,13 +30,16 @@ public class SelfDestruct : MonoBehaviour
 
         // destroying the object
         Destroy(gameObject);
+        spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
 
         if (gameObject.name == "correct")
         {
             // remember this item was on its way to the correct bin, eliminating it is the wrong thing to do
+            // which takes away a heart
             GameObject result = Instantiate(incorrectPrefab, transform.position, Quaternion.identity);//remember you switched            
             Destroy(result, 1);
-            
+            spawnRandomPoint.minusHearts();
+
         }
         else if (gameObject.name == "incorrect")
         {
@@ -45,13 +48,12 @@ public class SelfDestruct : MonoBehaviour
             GameObject result = Instantiate(correctPrefab, transform.position, Quaternion.identity); // remember you switched         
             Destroy(result, 1);
 
-            spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
+            
             spawnRandomPoint.plusScore();
 
         }
         else if (gameObject.name == "heart")
-        {
-            spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
+        {         
             spawnRandomPoint.plusHearts();                    
         }
 
