@@ -210,8 +210,7 @@ public class SpawnRandomPoint : MonoBehaviour
             {
                 //In this case the highscore is invalid anyway and so should be replaced
                 BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
-            }
-            
+            }   
             StartCoroutine(wait());
         }
     }
