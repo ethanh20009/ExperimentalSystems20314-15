@@ -25,6 +25,8 @@ public class BinCollision : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
+        Destroy(collision.gameObject);
+
         if (collision.gameObject.name == "correct")
         {
             GameObject shaderResult = Instantiate(correctShader, transform.position, Quaternion.identity);
@@ -42,5 +44,8 @@ public class BinCollision : MonoBehaviour
             spawnRandomPoint.minusHearts();
 
         }
+        // nothing happens if heart hits bin
+
+        
     }
 }
