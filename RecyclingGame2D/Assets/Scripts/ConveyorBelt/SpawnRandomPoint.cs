@@ -16,6 +16,9 @@ public class SpawnRandomPoint : MonoBehaviour
     public GameObject liveHeartPrefab;
     public GameObject deadHeartPrefab;
     public TMP_Text scoreValue;
+    [SerializeField] GameObject _GameOver;
+    [SerializeField] GameObject _ExitButton;
+    [SerializeField] GameObject _ObjectsOnScreen;
 
     private System.Random randomDecider = new System.Random();
     private int maxHearts = 6;
@@ -165,6 +168,16 @@ public class SpawnRandomPoint : MonoBehaviour
         }
     }
 
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(5);
+
+        SceneManager.LoadScene(0);
+
+    }
+
+
     public void minusHearts()
     {
         if (hearts > 0)
@@ -176,10 +189,22 @@ public class SpawnRandomPoint : MonoBehaviour
 
         if (hearts == 0)
         {
+            // game over
             Debug.Log("game_over");
-            SceneManager.LoadScene(0);
+
+            //Liam added this
+            _ExitButton.gameObject.SetActive(false);
+            _GameOver.gameObject.SetActive(true);
+            _ObjectsOnScreen.gameObject.SetActive(false);
+
+
+            BFSaveSystem.SaveClass(score.ToString(), "HS4");
+            StartCoroutine(wait());
         }
     }
+
+
+    
 
     public void createHearts()
     {
