@@ -40,7 +40,7 @@ public class Timer : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     void timerEnded()
