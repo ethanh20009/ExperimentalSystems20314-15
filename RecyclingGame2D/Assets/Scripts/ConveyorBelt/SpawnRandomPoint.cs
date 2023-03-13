@@ -195,10 +195,23 @@ public class SpawnRandomPoint : MonoBehaviour
             //Liam added this
             _ExitButton.gameObject.SetActive(false);
             _GameOver.gameObject.SetActive(true);
-            _ObjectsOnScreen.gameObject.SetActive(false);
+            //_ObjectsOnScreen.gameObject.SetActive(false);
 
+            String oldHS = BFSaveSystem.LoadClass<String>("HS4");
+            try
+            {
+                int result = Int32.Parse(oldHS);
+                if (result < score)
+                {
+                    BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+                }
+            }
+            catch (FormatException)
+            {
+                //In this case the highscore is invalid anyway and so should be replaced
+                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+            }
             
-            BFSaveSystem.SaveClass(score.ToString(), "HS4");
             StartCoroutine(wait());
         }
     }

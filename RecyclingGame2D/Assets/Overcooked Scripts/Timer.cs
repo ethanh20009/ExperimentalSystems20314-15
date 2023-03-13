@@ -14,7 +14,6 @@ public class Timer : MonoBehaviour
     public GameObject Submit;
     Objective ob;
 
-
     void Start()
     {
         _timerText.text = "Time: " + targetTime;
@@ -48,7 +47,15 @@ public class Timer : MonoBehaviour
         ob = GameObject.Find("Submit").GetComponent<Objective>();
         _GameOverText.gameObject.SetActive(true);
         Submit.gameObject.SetActive(false);
-        BFSaveSystem.SaveClass(ob.Score.ToString(),"HS2");
+        //try
+        //{
+        //    if(BFSaveSystem.LoadClass("HS2") < ob.Score)
+        //    {
+                BFSaveSystem.SaveClass(ob.Score.ToString(), "HS2");
+        //    }
+        //}
+        //catch
+        //{ }
         StartCoroutine(wait());
     }
 
