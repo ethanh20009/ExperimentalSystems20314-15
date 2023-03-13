@@ -197,7 +197,7 @@ public class SpawnRandomPoint : MonoBehaviour
             _GameOver.gameObject.SetActive(true);
             _ObjectsOnScreen.gameObject.SetActive(false);
 
-
+            
             BFSaveSystem.SaveClass(score.ToString(), "HS4");
             StartCoroutine(wait());
         }
