@@ -1,5 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
-
+    public Score sc;
     public float targetTime = 60.0f;
     [SerializeField] TextMeshProUGUI _timerText;
     [SerializeField] TextMeshProUGUI _GameOverText;
@@ -47,19 +52,23 @@ public class Timer : MonoBehaviour
         ob = GameObject.Find("Submit").GetComponent<Objective>();
         _GameOverText.gameObject.SetActive(true);
         Submit.gameObject.SetActive(false);
+        string oldHS = BFSaveSystem.LoadClass<string>("HS2");
+        int result;
+
         try
         {
-            int result = Int32.Parse(oldHS);
-            if (result < score)
+            result = Int32.Parse(oldHS);
+            if (result < ob.Score)
             {
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS2");
+                BFSaveSystem.SaveClass<string>(ob.Score.ToString(), "HS2");
             }
         }
         catch (FormatException)
         {
             //In this case the highscore is invalid anyway and so should be replaced
-            BFSaveSystem.SaveClass<String>(score.ToString(), "HS2");
+            BFSaveSystem.SaveClass<string>(ob.Score.ToString(), "HS2");
         }
+        StartCoroutine(wait());
         StartCoroutine(wait());
     }
 

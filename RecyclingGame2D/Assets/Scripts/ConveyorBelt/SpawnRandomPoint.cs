@@ -163,19 +163,19 @@ public class SpawnRandomPoint : MonoBehaviour
             // giving user time to realise game is over            
             gameOverScreen.SetActive(true);            
 
-            String oldHS = BFSaveSystem.LoadClass<String>("HS4");
+            string oldHS = BFSaveSystem.LoadClass<string>("HS4");
             try
             {
                 int result = Int32.Parse(oldHS);
                 if (result < score)
                 {
-                    BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+                    BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
                 }
             }
             catch (FormatException)
             {
                 //In this case the highscore is invalid anyway and so should be replaced
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+                BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
             }   
             StartCoroutine(wait());
             SceneManager.LoadScene(0);
