@@ -5,6 +5,10 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
     private CompostGameState gm;
+    [SerializeField]
+    private GameObject successSprite;
+    [SerializeField]
+    private GameObject wrongSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +30,13 @@ public class Ground : MonoBehaviour
         if (!item.isCompostable)
         {
             gm.updateScore(1);
+            GameObject go = Instantiate(successSprite, collision.transform.position, collision.transform.rotation);
+            Destroy(go, 2f);
+        }
+        else
+        {
+            GameObject go = Instantiate(wrongSprite, collision.transform.position, collision.transform.rotation);
+            Destroy(go, 2f);
         }
         Destroy(item.gameObject);
     }
