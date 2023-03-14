@@ -47,18 +47,18 @@ public class Timer : MonoBehaviour
         ob = GameObject.Find("Submit").GetComponent<Objective>();
         _GameOverText.gameObject.SetActive(true);
         Submit.gameObject.SetActive(false);
-        try
+        string oldHS = BFSaveSystem.LoadClass<string>("HS2");
+        if(int.TryParse(oldHS, out int result))
         {
-            int result = Int32.Parse(oldHS);
-            if (result < score)
+            if (result < ob.Score)
             {
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS2");
+                BFSaveSystem.SaveClass<string>(ob.Score.ToString(), "HS2");
             }
         }
-        catch (FormatException)
+        else
         {
             //In this case the highscore is invalid anyway and so should be replaced
-            BFSaveSystem.SaveClass<String>(score.ToString(), "HS2");
+            BFSaveSystem.SaveClass<string>(ob.Score.ToString(), "HS2");
         }
         StartCoroutine(wait());
     }
