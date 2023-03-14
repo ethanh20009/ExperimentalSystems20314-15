@@ -28,4 +28,9 @@ public class CompostItem : MonoBehaviour
     {
         
     }
+
+    private void OnDestroy()
+    {
+        gm.spawnNewItem();
+    }
 }

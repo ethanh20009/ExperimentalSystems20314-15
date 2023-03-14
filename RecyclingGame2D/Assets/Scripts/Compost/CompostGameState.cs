@@ -10,6 +10,11 @@ public class CompostGameState : MonoBehaviour
     private int highScore;
     private float timeLeft;
 
+    private Vector3 spawnPosition;
+    [SerializeField]
+    private float spawnRange = 1f;
+
+
     [SerializeField]
     private float roundTime = 10f; //Round time in seconds
 
@@ -19,6 +24,11 @@ public class CompostGameState : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timeText;
 
+    [SerializeField]
+    private Transform spawnPoint;
+    [SerializeField]
+    private GameObject foodItemPrefab;
+
 
     public List<Sprite> CompostableItems;
     public List<Sprite> NonCompostableItems;
@@ -26,16 +36,7 @@ public class CompostGameState : MonoBehaviour
     
     void Start()
     {
-        /*score = 0;
-        try
-        {
-            highScore = BFSaveSystem.LoadClass<CompostSavedData>("compostSave").getHighScore();
-            Debug.Log("Loaded stuff");
-            Debug.Log($"High score: {highScore}");
-        }
-        catch{
-            highScore = 0;
-        }*/
+        spawnPosition = spawnPoint.position;
         score = 0;
 
         CompostSavedData save = BFSaveSystem.LoadClass<CompostSavedData>("compostSave");
@@ -81,6 +82,23 @@ public class CompostGameState : MonoBehaviour
             highScore = score;
         }
         scoreText.text = score.ToString();
+    }
+
+    public void spawnNewItem()
+    {
+        spawnPosition = spawnPoint.position;
+        spawnPosition.x += Random.Range(-spawnRange, spawnRange);
+        Instantiate(foodItemPrefab, spawnPosition, Quaternion.Euler(0,0,0));
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 left = spawnPoint.position;
+        Vector3 right = spawnPoint.position;
+
+        left.x -= spawnRange;
+        right.x += spawnRange;
+        Gizmos.DrawLine(left, right);
     }
 
 }
