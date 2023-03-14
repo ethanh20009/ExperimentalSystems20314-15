@@ -38,6 +38,7 @@ public class SelfDestruct : MonoBehaviour
             // which takes away a heart
             GameObject result = Instantiate(incorrectPrefab, transform.position, Quaternion.identity);//remember you switched            
             Destroy(result, 1);
+            
             spawnRandomPoint.minusHearts();
 
         }
@@ -53,7 +54,8 @@ public class SelfDestruct : MonoBehaviour
 
         }
         else if (gameObject.name == "heart")
-        {         
+        {
+            
             spawnRandomPoint.plusHearts();                    
         }
 
