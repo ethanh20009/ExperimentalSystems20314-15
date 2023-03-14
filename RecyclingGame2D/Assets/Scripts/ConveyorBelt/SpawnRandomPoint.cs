@@ -16,22 +16,26 @@ public class SpawnRandomPoint : MonoBehaviour
     public GameObject deadHeartPrefab;
     public GameObject gameOverPrefab;
     public GameObject gameRulesPrefab;
-    public TMP_Text scoreValue;
-    [SerializeField] GameObject _GameOver;
-    [SerializeField] GameObject _ExitButton;
-    [SerializeField] GameObject _ObjectsOnScreen;
+    public TMP_Text scoreValue;   
 
     private System.Random randomDecider = new System.Random();
-    private int maxHearts = 3;
+    private int maxHearts = 5;
     private int hearts;
     private int score = 0;
+
+    GameObject gameOverScreen;
+    GameObject gameRulesScreen;
 
     // Start is called before the first frame update
     void Start()
     {
         createHearts();
-        GameObject gameRulesScreen = Instantiate(gameRulesPrefab, new Vector2(0, 0), Quaternion.identity);
-        Destroy(gameRulesScreen, 4);
+        
+        gameOverScreen = Instantiate(gameOverPrefab, new Vector2(0, 0), Quaternion.identity);
+        gameRulesScreen = Instantiate(gameRulesPrefab, new Vector2(0, 0), Quaternion.identity);
+        gameOverScreen.SetActive(false);
+        gameRulesScreen.name = "Loaded_Rule_Screen";
+        Destroy(gameRulesScreen, 3);
     }
 
     
@@ -70,7 +74,6 @@ public class SpawnRandomPoint : MonoBehaviour
         int goToBin = randomDecider.Next(binsLength);  // chooses where the item is spawned upon
         int itemType = randomDecider.Next(-7,6); // chooses whether the item is incorrect (-ve), correct(+ve) or bonus(0) // more incorrect than correct
         int itemIndex = randomDecider.Next(totalItemsPerBin); //chooses which item in the bin
-        int offset = randomDecider.Next(1, binsLength); // if we want an incorrect(-ve) itemType, the offset (mod(bin.Length)) chooses which bin the sprite is from 
         int offsetHeight = randomDecider.Next(10,13);
 
         if (itemType == 0)
@@ -85,16 +88,15 @@ public class SpawnRandomPoint : MonoBehaviour
         {
             //correct(+ve)
             itemFrom = bins[goToBin];
-            itemTypeName = "correct";
-            //objectName = itemFrom + "_" + itemIndex;
+            itemTypeName = "correct";            
             spriteLocationEnding = "/" + itemFrom + "/" + itemIndex + ".png";
         }
         else if (itemType < 0)
         {
             //incorrect(-ve)
+            //if we want an incorrect(-ve) itemType, the offset(mod(bin.Length)) chooses which bin the sprite is from
             itemFrom = bins[(goToBin + randomDecider.Next(1, binsLength)) % binsLength];
             itemTypeName = "incorrect";
-            //objectName = itemFrom + "_" + itemIndex;
             spriteLocationEnding = "/" + itemFrom + "/" + itemIndex + ".png";
         }
         instantiateRecyclingItem(spriteLocationEnding, new Vector2(itemsSpawnPositions[goToBin], offsetHeight), itemTypeName);
@@ -142,10 +144,7 @@ public class SpawnRandomPoint : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(5);
-
-        SceneManager.LoadScene(0);
-
+        yield return new WaitForSeconds(10);
     }
 
 
@@ -161,26 +160,13 @@ public class SpawnRandomPoint : MonoBehaviour
         if (hearts == 0)
         {
 
-            // giving user time to realise game is over
-            GameObject gameOverScreen = Instantiate(gameOverPrefab, new Vector2(0,0), Quaternion.identity);            
-            var delay = Task.Run(async () => {
-                GameObject gameOverScreen = Instantiate(gameOverPrefab, new Vector2(0, 0), Quaternion.identity);                
-                await Task.Delay(20000);                
-            });
+            // giving user time to realise game is over            
+            gameOverScreen.SetActive(true);            
 
-            SceneManager.LoadScene(0);
-
-            // game over
-            //Debug.Log("game_over");
-
-            //Liam added this
-            //_ExitButton.gameObject.SetActive(false);
-            //_GameOver.gameObject.SetActive(true);
-            //_ObjectsOnScreen.gameObject.SetActive(false);
-
-            
-            BFSaveSystem.SaveClass(score.ToString(), "HS4");
+            //save will throw so many errors
+            //save();
             StartCoroutine(wait());
+            SceneManager.LoadScene(0);
 
         }
     }
@@ -206,10 +192,40 @@ public class SpawnRandomPoint : MonoBehaviour
 
     public void plusScore()
     {
-        // updates score on screen
-        Debug.Log("Got here");
+        // updates score on screen        
         score++;
         scoreValue.text = score.ToString();
+    }
+
+    void save()
+    {
+        
+        String previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
+        try
+        {            
+            int prevScore = Int32.Parse(previousHighScore);
+            if (prevScore < score)
+            {
+                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+            }
+        }
+        catch(FormatException)
+        {
+            // In this case the highscore is invalid anyway and so should be replaced
+            try
+            {
+                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+            }            
+            catch (Exception e)
+            {
+                Debug.Log("Saving script crashed = " + e);
+            }
+        }
+        
+        catch(Exception e)
+        {
+            Debug.Log("Saving script crashed = " + e);
+        }
     }
 
 }

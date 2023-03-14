@@ -5,33 +5,32 @@ using UnityEngine;
 public class Info : MonoBehaviour
 {
     public GameObject gameRulesPrefab;
-    private bool show = false;
     GameObject gameRulesScreen;
     
-    
-    void OnMouseOver()
-    {
-        if (show == false)
-        {
-            gameRulesScreen = Instantiate(gameRulesPrefab, new Vector2(0, 0), Quaternion.identity);            
-            show = true;
-        }
-        
-    }
-
-    
-    void OnMouseExit()
-    {
-        if (show == false)
-        {
-            Destroy(gameRulesScreen);
-            show = false;
-        }
-    }
-
-    void OnMouseDown()
+    public void Start()
     {
         gameRulesScreen = Instantiate(gameRulesPrefab, new Vector2(0, 0), Quaternion.identity);
-        Destroy(gameRulesScreen, 3);
+        gameRulesScreen.SetActive(false);
+    }
+    void OnMouseOver()
+    {
+        gameRulesScreen.SetActive(true);
+    }
+    
+    public void OnMouseExit()
+    {
+        gameRulesScreen.SetActive(false);
+    }
+
+    public void OnMouseDown()
+    {
+        gameRulesScreen.SetActive(true);
+        StartCoroutine(wait());
+        gameRulesScreen.SetActive(false);
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(2);
     }
 }
