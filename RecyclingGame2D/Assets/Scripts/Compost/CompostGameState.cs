@@ -6,7 +6,7 @@ using TMPro;
 public class CompostGameState : MonoBehaviour
 {
 
-    private int score;
+    public int score;
     private int highScore;
     private float timeLeft;
 
