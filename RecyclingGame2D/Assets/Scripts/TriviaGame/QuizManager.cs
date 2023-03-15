@@ -122,21 +122,21 @@ public class QuizManager : MonoBehaviour
         gamePanel.SetActive(false);
         endScreenPanel.SetActive(true);
         string savedScore;
-        try
+        if (File.Exists(Application.persistentDataPath + "/HS3.fun"))
         {
-            savedScore = BFSaveSystem.LoadClass<string>("highScore");
+            savedScore = BFSaveSystem.LoadClass<string>("HS3");
         }
-        catch
+        else
         {
-            BFSaveSystem.SaveClass<string>("0", "highScore");
+            BFSaveSystem.SaveClass<string>("0", "HS3");
             savedScore = "0";
         }
-        savedScore = BFSaveSystem.LoadClass<string>("highScore");
+        savedScore = BFSaveSystem.LoadClass<string>("HS3");
         Debug.Log("Yo");
         Debug.Log(savedScore);
         if (score > Int16.Parse(savedScore))
         {
-            BFSaveSystem.SaveClass<string>(score.ToString(), "highScore"); 
+            BFSaveSystem.SaveClass<string>(score.ToString(), "HS3"); 
             finalScore.text = "NEW HIGH SCORE: " + score.ToString();
             savedScore = score.ToString();
         }
