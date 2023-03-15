@@ -22,6 +22,7 @@ public class SpawnRandomPoint : MonoBehaviour
     private int maxHearts = 5;
     private int hearts;
     private int score = 0;
+    private bool gameOver = false;
 
     GameObject gameOverScreen;
     GameObject gameRulesScreen;
@@ -142,9 +143,10 @@ public class SpawnRandomPoint : MonoBehaviour
     }
 
 
-    IEnumerator wait()
+    IEnumerator waitExit()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
     }
 
 
@@ -157,29 +159,20 @@ public class SpawnRandomPoint : MonoBehaviour
             hearts--;
         }
 
-        if (hearts == 0)
+        if (hearts == 0 && !gameOver )
         {
 
             // giving user time to realise game is over            
-            gameOverScreen.SetActive(true);            
+            gameOverScreen.SetActive(true);
+            gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
-            string oldHS = BFSaveSystem.LoadClass<string>("HS4");
-            try
-            {
-                int result = Int32.Parse(oldHS);
-                if (result < score)
-                {
-                    BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
-                }
-            }
-            catch (FormatException)
-            {
-                //In this case the highscore is invalid anyway and so should be replaced
-                BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
-            }   
-            StartCoroutine(wait());
-            SceneManager.LoadScene(0);
+            // for previous score, upload the number then just access
+            // gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = // previousValue;
 
+            // the saving class crashes too much, so I decided against it
+            //save();
+            gameOver = true;
+            StartCoroutine(waitExit());
         }
     }
 
@@ -212,7 +205,7 @@ public class SpawnRandomPoint : MonoBehaviour
     void save()
     {
         
-        String previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
+        string previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
         try
         {            
             int prevScore = Int32.Parse(previousHighScore);
