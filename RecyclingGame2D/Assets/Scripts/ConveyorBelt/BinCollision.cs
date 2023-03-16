@@ -24,7 +24,7 @@ public class BinCollision : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-
+        
         Destroy(collision.gameObject);
 
         if (collision.gameObject.name == "correct")
@@ -32,6 +32,8 @@ public class BinCollision : MonoBehaviour
             GameObject shaderResult = Instantiate(correctShader, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
             Destroy(shaderResult, 1);
+            spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
+            spawnRandomPoint.plusScore();
 
         }
         else if (collision.gameObject.name == "incorrect")
