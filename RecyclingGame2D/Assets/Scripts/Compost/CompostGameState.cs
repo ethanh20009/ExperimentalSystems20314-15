@@ -16,7 +16,7 @@ public class CompostGameState : MonoBehaviour
 
 
     [SerializeField]
-    private float roundTime = 10f; //Round time in seconds
+    private float roundTime = 60f; //Round time in seconds
 
     [SerializeField]
     private TextMeshProUGUI scoreText;
@@ -53,7 +53,7 @@ public class CompostGameState : MonoBehaviour
         scoreText.text = score.ToString();
 
         //Time Setup
-        timeLeft = roundTime;
+        timeLeft = 60f;
         timeText.text = "Time left: " + ((int)timeLeft).ToString();
 
     }
