@@ -6105,7 +6105,7 @@ MonoBehaviour:
   targetTime: 60
   _timerText: {fileID: 1935461050}
   _GameOverText: {fileID: 790866263}
-  _ExitButton: {fileID: 9095435296748139275}
+  exitButton: {fileID: 9095435296748139275}
   Submit: {fileID: 374933765}
 --- !u!1 &614090306
 GameObject:

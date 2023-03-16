@@ -10,7 +10,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SpawnRandomPoint : MonoBehaviour
-{   
+{
+    public GameObject exitButton;
+
     public GameObject RecyclingPrefab;
     public GameObject liveHeartPrefab;
     public GameObject deadHeartPrefab;
@@ -146,6 +148,7 @@ public class SpawnRandomPoint : MonoBehaviour
     IEnumerator waitExit()
     {
         yield return new WaitForSeconds(3);
+        save();
         SceneManager.LoadScene(0);
     }
 
@@ -165,7 +168,7 @@ public class SpawnRandomPoint : MonoBehaviour
             // giving user time to realise game is over            
             gameOverScreen.SetActive(true);
             gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString();
-
+            exitButton.SetActive(false);
             // for previous score, upload the number then just access
             // gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = // previousValue;
 
