@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using System;
 using System.IO;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class QuizManager : MonoBehaviour
 {
     public List<QuestionAndAnswers> QA;
     public GameObject[] options;
+
+    public GameObject exitButton;
 
     public int currentQuestion;
     public int score = 0;
@@ -117,6 +120,12 @@ public class QuizManager : MonoBehaviour
         
     }
 
+    IEnumerator waitExit()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
+    }
+
     void endScreen()
     {
         gamePanel.SetActive(false);
@@ -145,5 +154,7 @@ public class QuizManager : MonoBehaviour
             finalScore.text = "SCORE: " + score.ToString();
         }
         HighScore.text = "HIGH SCORE: " + savedScore;
+        exitButton.SetActive(false);
+        StartCoroutine(waitExit());
     }
 }
