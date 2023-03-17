@@ -169,6 +169,7 @@ public class SpawnRandomPoint : MonoBehaviour
             gameOverScreen.SetActive(true);
             gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString();
             exitButton.SetActive(false);
+
             // for previous score, upload the number then just access
             // gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = // previousValue;
 
