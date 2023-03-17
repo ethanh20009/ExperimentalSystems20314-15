@@ -783,7 +783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314330186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.799999, y: 6, z: 0}
+  m_LocalPosition: {x: -11.5, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1590,8 +1590,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9095435296084829817, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 9095435296084829817, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 9095435296084829817, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 9095435296084829817, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -70
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+--- !u!1 &1287246140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9095435295868412793, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+  m_PrefabInstance: {fileID: 1287246139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366837516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,6 +1921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b755bc5257513c6419c35237c7e02f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exitButton: {fileID: 1287246140}
   RecyclingPrefab: {fileID: 8367204813099744411, guid: b676b64aa98dd3c41bbf70b1fd9e163f, type: 3}
   liveHeartPrefab: {fileID: 5113488758809271588, guid: ccc8f285829e5b745b32c8a8ead793ea, type: 3}
   deadHeartPrefab: {fileID: 5430994601716770409, guid: 6c89c0183dd28ab4fa6a07536e9abdd0, type: 3}
