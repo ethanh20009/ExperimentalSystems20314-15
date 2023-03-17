@@ -169,11 +169,6 @@ public class SpawnRandomPoint : MonoBehaviour
             gameOverScreen.SetActive(true);
             gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString();
             exitButton.SetActive(false);
-
-            // for previous score, upload the number then just access
-            // gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = // previousValue;
-
-            // the saving class crashes too much, so I decided against it
             save();
             gameOver = true;            
             StartCoroutine(waitExit());
@@ -222,33 +217,7 @@ public class SpawnRandomPoint : MonoBehaviour
             BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
 
         }
-        /////
-        //string previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
-        //try
-        //{            
-        //    int prevScore = Int32.Parse(previousHighScore);
-        //    if (prevScore < score)
-        //    {
-        //        BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
-        //    }
-        //}
-        //catch(FormatException)
-        //{
-        //    // In this case the highscore is invalid anyway and so should be replaced
-        //    try
-        //    {
-        //        BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
-        //    }            
-        //    catch (Exception e)
-        //    {
-        //        //Debug.Log("Saving script crashed = " + e);
-        //    }
-        //}
-        
-        //catch(Exception e)
-        //{
-        //    //Debug.Log("Saving script crashed = " + e);
-        //}
+       
     }
 
 }
