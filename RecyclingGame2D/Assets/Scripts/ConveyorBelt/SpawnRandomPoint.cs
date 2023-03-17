@@ -55,7 +55,7 @@ public class SpawnRandomPoint : MonoBehaviour
         }
         
 
-        if (goOrStay < 2 )
+        if (goOrStay < 2 && gameOver == false)
         {
             itemDecider();
         }
@@ -174,8 +174,8 @@ public class SpawnRandomPoint : MonoBehaviour
             // gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = // previousValue;
 
             // the saving class crashes too much, so I decided against it
-            //save();
-            gameOver = true;
+            save();
+            gameOver = true;            
             StartCoroutine(waitExit());
         }
     }
@@ -208,33 +208,47 @@ public class SpawnRandomPoint : MonoBehaviour
 
     void save()
     {
-        
-        string previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
-        try
-        {            
-            int prevScore = Int32.Parse(previousHighScore);
-            if (prevScore < score)
+        if (File.Exists(Application.persistentDataPath + "/HS4.fun"))
+        {
+            string previousHighScore = BFSaveSystem.LoadClass<string>("HS4");
+            gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = previousHighScore;
+            if (Int32.Parse(previousHighScore) < score)
             {
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+                BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
             }
         }
-        catch(FormatException)
+        else
         {
-            // In this case the highscore is invalid anyway and so should be replaced
-            try
-            {
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
-            }            
-            catch (Exception e)
-            {
-                Debug.Log("Saving script crashed = " + e);
-            }
+            BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
+
         }
+        /////
+        //string previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
+        //try
+        //{            
+        //    int prevScore = Int32.Parse(previousHighScore);
+        //    if (prevScore < score)
+        //    {
+        //        BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+        //    }
+        //}
+        //catch(FormatException)
+        //{
+        //    // In this case the highscore is invalid anyway and so should be replaced
+        //    try
+        //    {
+        //        BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+        //    }            
+        //    catch (Exception e)
+        //    {
+        //        //Debug.Log("Saving script crashed = " + e);
+        //    }
+        //}
         
-        catch(Exception e)
-        {
-            Debug.Log("Saving script crashed = " + e);
-        }
+        //catch(Exception e)
+        //{
+        //    //Debug.Log("Saving script crashed = " + e);
+        //}
     }
 
 }
