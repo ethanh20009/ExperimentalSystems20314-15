@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 5836540508923147365}
   - component: {fileID: 6051030518896841156}
   m_Layer: 5
-  m_Name: Previous_Value_Over
+  m_Name: Best_Value_Over
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 1750847000182097675}
   - component: {fileID: 7135901373927729520}
   m_Layer: 5
-  m_Name: Previous_Text
+  m_Name: Best_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PREVIOUS
+  m_text: BEST
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -151.4242, y: 0, z: -30.284912, w: -75.71216}
+  m_margin: {x: -76.829834, y: 0, z: -30.284912, w: -75.71216}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

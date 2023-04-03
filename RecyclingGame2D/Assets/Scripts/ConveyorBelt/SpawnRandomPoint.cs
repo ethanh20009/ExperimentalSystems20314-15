@@ -10,7 +10,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SpawnRandomPoint : MonoBehaviour
-{   
+{
+    public GameObject exitButton;
+
     public GameObject RecyclingPrefab;
     public GameObject liveHeartPrefab;
     public GameObject deadHeartPrefab;
@@ -53,7 +55,7 @@ public class SpawnRandomPoint : MonoBehaviour
         }
         
 
-        if (goOrStay < 2 )
+        if (goOrStay < 2 && gameOver == false)
         {
             itemDecider();
         }
@@ -146,6 +148,7 @@ public class SpawnRandomPoint : MonoBehaviour
     IEnumerator waitExit()
     {
         yield return new WaitForSeconds(3);
+        save();
         SceneManager.LoadScene(0);
     }
 
@@ -165,13 +168,9 @@ public class SpawnRandomPoint : MonoBehaviour
             // giving user time to realise game is over            
             gameOverScreen.SetActive(true);
             gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString();
-
-            // for previous score, upload the number then just access
-            // gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = // previousValue;
-
-            // the saving class crashes too much, so I decided against it
-            //save();
-            gameOver = true;
+            exitButton.SetActive(false);
+            save();
+            gameOver = true;            
             StartCoroutine(waitExit());
         }
     }
@@ -204,33 +203,21 @@ public class SpawnRandomPoint : MonoBehaviour
 
     void save()
     {
-        
-        string previousHighScore = BFSaveSystem.LoadClass<String>("HS4");
-        try
-        {            
-            int prevScore = Int32.Parse(previousHighScore);
-            if (prevScore < score)
+        if (File.Exists(Application.persistentDataPath + "/HS4.fun"))
+        {
+            string previousHighScore = BFSaveSystem.LoadClass<string>("HS4");
+            gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = previousHighScore;
+            if (Int32.Parse(previousHighScore) < score)
             {
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
+                BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
             }
         }
-        catch(FormatException)
+        else
         {
-            // In this case the highscore is invalid anyway and so should be replaced
-            try
-            {
-                BFSaveSystem.SaveClass<String>(score.ToString(), "HS4");
-            }            
-            catch (Exception e)
-            {
-                Debug.Log("Saving script crashed = " + e);
-            }
+            BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
+
         }
-        
-        catch(Exception e)
-        {
-            Debug.Log("Saving script crashed = " + e);
-        }
+       
     }
 
 }

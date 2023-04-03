@@ -25,6 +25,14 @@ public class compostTests
         Assert.Less(score, scoreNew);
     }
 
+    
+
+    [TearDown]
+    public void Teardown()
+    {
+        EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+    }
+
 }
 
 

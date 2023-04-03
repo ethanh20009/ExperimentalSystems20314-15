@@ -21,3 +21,12 @@
 <p>Most games fail to educate on the variability of recycling systems we use in the UK. Some places have 2 bins, some require sorting into 5 bins (Glass, aluminium/metal, Plastic, General Waste, Compost). The lack of reflection of this in these mainstream games means most will struggle adapting what they have learnt to real life. This will therefore have an impact on how much they recycle, as uncertaincy of correction will push them to the safe option of general waste.</p>
 <p>Our solution will aim to educate as much recycling nuance as possible (in a manner suitable for children). While making learning fun, we aim to be able to teach children every which way of how to recycle correctly! No matter the recycling system they will have to use, or how obscure and technical the waste is.</p>
 <p>Lastly, we aim to demonstrate why waste must be recycled. An increased awareness on what happens later down the process will incentivise recycling, knowing what they are doing has a direct impact on the world they live in. This point is also scarsely seen in online recycling games we have looked at.</p>
+
+<h2>Additional Information</h2>
+<p>Test spreadsheet can be found within the root directory. Unit tests are located in the following paths:</p>
+<ul>
+  <li>RecyclingGame2D/Assets/Scripts/CompostTests/</li>
+  <li>RecyclingGame2D/Assets/OvercookedTests/</li>
+</ul>
+
+

@@ -20,7 +20,8 @@ public static class BFSaveSystem
         string path = Application.persistentDataPath + "/" + filename + ".fun";
         if (!File.Exists(path))
         {
-            Debug.Log("File not found");
+            //Removed the debug just for aestetics
+            //Debug.Log("File not found");
             return default(T);
         }
         try

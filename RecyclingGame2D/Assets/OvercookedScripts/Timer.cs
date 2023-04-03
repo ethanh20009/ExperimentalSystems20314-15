@@ -11,6 +11,7 @@ public class Timer : MonoBehaviour
     public float targetTime = 60.0f;
     [SerializeField] TextMeshProUGUI _timerText;
     [SerializeField] TextMeshProUGUI _GameOverText;
+    public GameObject exitButton;
     public GameObject Submit;
     Objective ob;
 
@@ -60,6 +61,7 @@ public class Timer : MonoBehaviour
             //In this case the highscore is invalid anyway and so should be replaced
             BFSaveSystem.SaveClass<string>(ob.Score.ToString(), "HS2");
         }
+        exitButton.SetActive(false);
         StartCoroutine(wait());
     }
 

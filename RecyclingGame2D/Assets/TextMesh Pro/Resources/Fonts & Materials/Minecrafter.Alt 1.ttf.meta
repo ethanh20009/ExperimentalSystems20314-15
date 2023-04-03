@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e356574b1bcaf5349bfed6cdc2cffe83
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Minecrafter Alt
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8da27d6c0f33087469572235a592f277, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

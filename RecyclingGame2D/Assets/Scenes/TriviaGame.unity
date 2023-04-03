@@ -747,6 +747,7 @@ MonoBehaviour:
   - {fileID: 736627366}
   - {fileID: 2089530549}
   - {fileID: 685415040}
+  exitButton: {fileID: 1134889135562833057}
   currentQuestion: 0
   score: 0
   correctPlayer: {fileID: 1262151136}
