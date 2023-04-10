@@ -43,7 +43,8 @@ public class compostBinScript : MonoBehaviour
             manager.updateScore(1);
         }
         else { wrongEffect.Play(); }
-        Destroy(collision.gameObject);
+        
+        itemComponent.markForDestruction();
     }
 
 
