@@ -9,7 +9,7 @@ public static class BFSaveSystem
     public static void SaveClass<T>(T objectToSave, string filename)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/" + filename + ".fun";
+        string path = Application.persistentDataPath + System.IO.Path.PathSeparator + filename + ".fun";
         FileStream fileStream = new FileStream(path, FileMode.Create);
         bf.Serialize(fileStream, objectToSave);
         fileStream.Close();

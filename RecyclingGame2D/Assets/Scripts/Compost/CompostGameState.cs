@@ -29,7 +29,7 @@ public class CompostGameState : MonoBehaviour
     [SerializeField]
     private GameObject foodItemPrefab;
 
-
+    private const string SAVELOCATION = "compostSave";
     public List<Sprite> CompostableItems;
     public List<Sprite> NonCompostableItems;
     
@@ -39,7 +39,7 @@ public class CompostGameState : MonoBehaviour
         spawnPosition = spawnPoint.position;
         score = 0;
 
-        CompostSavedData save = BFSaveSystem.LoadClass<CompostSavedData>("compostSave");
+        CompostSavedData save = BFSaveSystem.LoadClass<CompostSavedData>(SAVELOCATION);
         if (save == null)
         {
             highScore = 0;
@@ -69,7 +69,7 @@ public class CompostGameState : MonoBehaviour
     private void OnApplicationQuit()
     {
         CompostSavedData data = new CompostSavedData(highScore);
-        BFSaveSystem.SaveClass(data, "compostSave");
+        BFSaveSystem.SaveClass(data, SAVELOCATION);
         Debug.Log("Saved");
         Debug.Log(data.highScore);
     }
