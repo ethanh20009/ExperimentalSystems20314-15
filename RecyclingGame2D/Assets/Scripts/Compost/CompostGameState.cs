@@ -11,23 +11,28 @@ public class CompostGameState : MonoBehaviour
     private float timeLeft;
 
     private Vector3 spawnPosition;
+
+    [Header("Game Properties")]
+
     [SerializeField]
     private float spawnRange = 1f;
-
 
     [SerializeField]
     private float roundTime = 60f; //Round time in seconds
 
     [SerializeField]
-    private TextMeshProUGUI scoreText;
-
-    [SerializeField]
-    private TextMeshProUGUI timeText;
-
-    [SerializeField]
     private Transform spawnPoint;
     [SerializeField]
     private GameObject foodItemPrefab;
+
+    [Header("UI")]
+
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
+    [SerializeField]
+    private TextMeshProUGUI timeText, currentItemText;
+
+
 
     private const string SAVELOCATION = "compostSave";
     public List<Sprite> CompostableItems;
@@ -55,6 +60,7 @@ public class CompostGameState : MonoBehaviour
         //Time Setup
         timeLeft = 60f;
         timeText.text = "Time left: " + ((int)timeLeft).ToString();
+        spawnNewItem();
 
     }
 
@@ -86,9 +92,34 @@ public class CompostGameState : MonoBehaviour
 
     public void spawnNewItem()
     {
+        if (spawnPosition == null) { return; }
         spawnPosition = spawnPoint.position;
         spawnPosition.x += Random.Range(-spawnRange, spawnRange);
-        Instantiate(foodItemPrefab, spawnPosition, Quaternion.Euler(0,0,0));
+        GameObject item = Instantiate(foodItemPrefab, spawnPosition, Quaternion.Euler(0,0,0));
+        updateItemText(item.GetComponent<CompostItem>().getItemName());
+    }
+
+    private void updateItemText(string text)
+    {
+        //Replace camel case with spaces
+        string stringToUpdate = "";
+        if (text == null) { this.currentItemText.text = stringToUpdate; return; }
+
+        //Ignore first captial
+        stringToUpdate += text[0];
+        text = text.Substring(1);
+        foreach(char c in text)
+        {
+            //Check if upper        
+            if (char.IsUpper(c))
+            {
+                stringToUpdate += " ";
+            }
+            stringToUpdate += c;
+        }
+        
+
+        this.currentItemText.text = stringToUpdate;
     }
 
     private void OnDrawGizmosSelected()
