@@ -22,7 +22,7 @@ public class CompostItem : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = gm.NonCompostableItems[Random.Range(0, gm.NonCompostableItems.Count)];
         }
-        this.itemName = GetComponent<SpriteRenderer>().sprite.name;
+        itemName = GetComponent<SpriteRenderer>().sprite.name;
     }
 
     // Update is called once per frame
@@ -33,16 +33,24 @@ public class CompostItem : MonoBehaviour
 
     public string getItemName()
     {
-        return this.itemName;
+        return itemName;
     }
 
-    private void OnDestroy()
+    public void markForDestruction()
+    {
+        destroyGameObject();
+    }
+
+    private void destroyGameObject()
     {
         if (gm != null)
         {
             gm.spawnNewItem();
         }
+        Destroy(gameObject);
     }
+
+
 
 
 }

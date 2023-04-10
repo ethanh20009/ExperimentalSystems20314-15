@@ -30,14 +30,14 @@ public class Ground : MonoBehaviour
         if (!item.isCompostable)
         {
             gm.updateScore(1);
-            GameObject go = Instantiate(successSprite, collision.transform.position, collision.transform.rotation);
+            GameObject go = Instantiate(successSprite, collision.transform.position, Quaternion.identity);
             Destroy(go, 2f);
         }
         else
         {
-            GameObject go = Instantiate(wrongSprite, collision.transform.position, collision.transform.rotation);
+            GameObject go = Instantiate(wrongSprite, collision.transform.position, Quaternion.identity);
             Destroy(go, 2f);
         }
-        Destroy(item.gameObject);
+        item.markForDestruction();
     }
 }
