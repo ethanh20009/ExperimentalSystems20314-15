@@ -8765,13 +8765,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Select materials by clicking the appropriate bins
+  m_text: '- Select materials by double-clicking the appropriate bins
 
-    - Drag materials
-    into machines to change them
+    - Drag
+    materials into machines to change them
 
-    - combine materials in the correct ways to
-    create recycled items'
+    - combine materials in the correct
+    ways to create recycled items'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 69f1dc93afa1c0b4085b7c1bd83424bc, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
