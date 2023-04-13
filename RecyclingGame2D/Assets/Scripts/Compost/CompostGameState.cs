@@ -9,6 +9,8 @@ public class CompostGameState : MonoBehaviour
     public int score;
     private int highScore;
     private float timeLeft;
+    private bool isPaused;
+    private List<GameObject> compostableItems;
 
     private Vector3 spawnPosition;
 
@@ -32,6 +34,10 @@ public class CompostGameState : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timeText, currentItemText;
 
+    [SerializeField]
+    private GameObject pauseMenu;
+
+
 
 
     private const string SAVELOCATION = "compostSave";
@@ -41,8 +47,8 @@ public class CompostGameState : MonoBehaviour
     
     void Start()
     {
+        compostableItems = new List<GameObject>();
         spawnPosition = spawnPoint.position;
-        score = 0;
 
         CompostSavedData save = BFSaveSystem.LoadClass<CompostSavedData>(SAVELOCATION);
         if (save == null)
@@ -57,22 +63,96 @@ public class CompostGameState : MonoBehaviour
         }
         scoreText.text = score.ToString();
 
-        //Time Setup
-        timeLeft = 60f;
+        setupRound();
+        pauseGame(true);
+    }
+
+    private void updateTimeLeftText()
+    {
         timeText.text = "Time left: " + ((int)timeLeft).ToString();
+    }
+
+    private void clearCompostableItems()
+    {
+        foreach (GameObject item in compostableItems)
+        {
+            if (item != null)
+            {
+                Destroy(item);
+            }
+        }
+        compostableItems.Clear();
+    }
+
+    public void trackCompostItem(GameObject obj)
+    {
+        compostableItems.Add(obj);
+    }
+
+    public void untrackCompostableItem(GameObject obj)
+    {
+        compostableItems.Remove(obj);
+    }
+
+    public void pauseGame(bool isInit = false)
+    {
+        PauseMenu pm = pauseMenu.GetComponent<PauseMenu>();
+        isPaused = true;
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+        pm.setHighscore(highScore);
+        if (!isInit)
+        {
+            pm.setScore(score);
+            pm.showScore();
+        }
+        else
+        {
+            pm.hideScore();
+        }
+    }
+
+    public void startGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
         spawnNewItem();
+        pauseMenu.SetActive(false);
+    }
+
+    public void setupRound()
+    {
+        clearCompostableItems();
+        score = 0;
+        timeLeft = roundTime;
+        updateTimeLeftText();
 
     }
+
+    public void endRound()
+    {
+        saveScore();
+        pauseGame();
+        setupRound();
+        
+    }
+
+
 
     // Update is called once per frame
     void Update()
     {
         timeLeft -= Time.deltaTime;
-        timeText.text = "Time left: " + ((int)timeLeft).ToString();
-
+        updateTimeLeftText();
+        if (timeLeft < 0)
+        {
+            timeLeft = 0;
+            updateTimeLeftText();
+            endRound();
+        }
     }
 
-    private void OnApplicationQuit()
+    private void saveScore()
     {
         CompostSavedData data = new CompostSavedData(highScore);
         BFSaveSystem.SaveClass(data, SAVELOCATION);
