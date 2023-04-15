@@ -11,7 +11,7 @@ public class ScreenLoader : MonoBehaviour
     public void Start()
     {        
         
-        GameObject Screen = Instantiate(Prefab, new Vector2(0, 0), Quaternion.identity);
+        Screen = Instantiate(Prefab, new Vector2(0, 0), Quaternion.identity);
         //Screen.transform.parent = gameObject.transform;
         Screen.SetActive(false);
     }
