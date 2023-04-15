@@ -25,6 +25,11 @@ public class CompostItem : MonoBehaviour
         itemName = GetComponent<SpriteRenderer>().sprite.name;
     }
 
+    private void Start()
+    {
+        gm.trackCompostItem(gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -38,6 +43,7 @@ public class CompostItem : MonoBehaviour
 
     public void markForDestruction()
     {
+        gm.untrackCompostableItem(gameObject);
         destroyGameObject();
     }
 

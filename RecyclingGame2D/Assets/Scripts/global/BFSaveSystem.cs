@@ -17,7 +17,7 @@ public static class BFSaveSystem
 
     public static T LoadClass<T>(string filename) where T : class
     {
-        string path = Application.persistentDataPath + "/" + filename + ".fun";
+        string path = Application.persistentDataPath + System.IO.Path.PathSeparator + filename + ".fun";
         if (!File.Exists(path))
         {
             //Removed the debug just for aestetics
