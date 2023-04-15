@@ -165,7 +165,8 @@ public class SpawnRandomPoint : MonoBehaviour
         if (hearts == 0 && !gameOver )
         {
 
-            // giving user time to realise game is over            
+            // giving user time to realise game is over
+            disableGuide();
             gameOverScreen.SetActive(true);
             gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = score.ToString();
             exitButton.SetActive(false);
@@ -218,6 +219,18 @@ public class SpawnRandomPoint : MonoBehaviour
 
         }
        
+    }
+
+    void disableGuide()
+    {
+        GameObject[] PopupScreens = GameObject.FindGameObjectsWithTag("PopupScreen");
+        foreach (GameObject screen in PopupScreens)
+        {
+            if (screen != null)
+            {
+                screen.SetActive(false);
+            }
+        }
     }
 
 }
