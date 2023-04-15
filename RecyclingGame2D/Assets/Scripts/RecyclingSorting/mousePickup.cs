@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class mousePickup : MonoBehaviour
 {
-
-    private float distance = 10f;
+    //removed as causing error error
+    //private float distance = 10f;
     // Start is called before the first frame update
     void Start()
     {

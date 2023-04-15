@@ -15,10 +15,12 @@ public class ScreenLoader : MonoBehaviour
         //Screen.transform.parent = gameObject.transform;
         Screen.SetActive(false);
     }
-    void OnMouseOver()
-    {
-        Screen.SetActive(true);
-    }
+
+    // switched OnMouseOver to OnMouseDown as it got messy sometimes
+    //void OnMouseOver()
+    //{
+    //    Screen.SetActive(true);
+    //}
     
     public void OnMouseExit()
     {
@@ -31,8 +33,8 @@ public class ScreenLoader : MonoBehaviour
     public void OnMouseDown()
     {
         Screen.SetActive(true);
-        StartCoroutine(wait());
-        Screen.SetActive(false);
+        //StartCoroutine(wait());
+        //Screen.SetActive(false);
     }
 
     IEnumerator wait()

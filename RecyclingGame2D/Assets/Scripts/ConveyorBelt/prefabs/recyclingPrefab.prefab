@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8367204813099744481}
+  - component: {fileID: 2092350567140887443}
   - component: {fileID: 8367204813099744480}
   - component: {fileID: 8367204813099744413}
   - component: {fileID: 8367204813099744412}
@@ -20,7 +20,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8367204813099744481
+--- !u!4 &2092350567140887443
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,3 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPrefab: {fileID: 2361368573018732014, guid: 42bed96ac5acdb449b2602c2d1fe98cf, type: 3}
   incorrectPrefab: {fileID: 5489957617480697304, guid: 33c463baa9dd3224ca33af84bb3940bd, type: 3}
+  spriteLocationEnding: []
