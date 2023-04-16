@@ -25,5 +25,9 @@ public class ObjectChanger : MonoBehaviour
             _selectedText.text = "Selected object: " + Spawn.name;
             os.objects_created = 0;
         }
+        else
+        {
+            Debug.Log("Can't convert");
+        }
     }
 }
