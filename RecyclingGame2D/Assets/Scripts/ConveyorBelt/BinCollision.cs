@@ -25,28 +25,26 @@ public class BinCollision : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         
-        Destroy(collision.gameObject);
+        //Destroy(collision.gameObject);
 
         if (collision.gameObject.name == "correct")
         {
             GameObject shaderResult = Instantiate(correctShader, transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);
             Destroy(shaderResult, 1);
-            
-
         }
         else if (collision.gameObject.name == "incorrect")
         {
-            GameObject shaderResult = Instantiate(incorrectShader, transform.position, Quaternion.identity);            
-            Destroy(collision.gameObject);
+            GameObject shaderResult = Instantiate(incorrectShader, transform.position, Quaternion.identity);
             Destroy(shaderResult, 1);
 
             spawnRandomPoint = GameObject.Find("Spawn_Point").GetComponent<SpawnRandomPoint>();
             spawnRandomPoint.minusHearts();
-
+            spawnRandomPoint.showCorrection(collision.gameObject.GetComponent<SelfDestruct>().spriteLocationEnding);
         }
-        // nothing happens if heart hits bin
 
-        
+        Destroy(collision.gameObject);
+        // heart bonus just gets destroyed
+
+
     }
 }

@@ -9,29 +9,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class SpawnRandomPoint : MonoBehaviour
+public class SpawnRandomPointBackup3 : MonoBehaviour
 {
     public GameObject exitButton;
 
     public GameObject RecyclingPrefab;
-    public GameObject correctionPrefab;
     public GameObject liveHeartPrefab;
     public GameObject deadHeartPrefab;
     public GameObject gameOverPrefab;
     public GameObject gameRulesPrefab;
-    public TMP_Text scoreValue;
-    public bool correctionActive = false; 
-    public bool[] correctionPopupsActive = new bool[] {false, false, false}; // lenght of 3 is for the lenght of correctionPosition
+    public TMP_Text scoreValue;   
 
-    private Vector2[] correctionPosition = new Vector2[] { new Vector2(2.52f, 5.5f), new Vector2(-2.52f, 5.5f), new Vector2(-7.48f, 5.5f) };
-    private GameObject[] correctionPopups = new GameObject[3]; // 3 is for the lenght of correctionPosition
     private System.Random randomDecider = new System.Random();
     private int maxHearts = 5;
     private int hearts;
     private int score = 0;
     private bool gameOver = false;
-    
-    
 
     GameObject gameOverScreen;
     GameObject gameRulesScreen;
@@ -40,9 +33,7 @@ public class SpawnRandomPoint : MonoBehaviour
     void Start()
     {
         createHearts();
-        createCorrectionPopups();
-
-
+        
         gameOverScreen = Instantiate(gameOverPrefab, new Vector2(0, 0), Quaternion.identity);
         gameRulesScreen = Instantiate(gameRulesPrefab, new Vector2(0, 0), Quaternion.identity);
         gameOverScreen.SetActive(false);
@@ -82,23 +73,26 @@ public class SpawnRandomPoint : MonoBehaviour
         //choosing random item
         string itemFrom = ""; //set later, this is the bin the item should actually go to
         string itemTypeName = "";
+        string spriteLocationEnding = "";
         int goToBin = randomDecider.Next(binsLength);  // chooses where the item is spawned upon
         int itemType = randomDecider.Next(-7,6); // chooses whether the item is incorrect (-ve), correct(+ve) or bonus(0) // more incorrect than correct
-        string itemIndex = "" + randomDecider.Next(totalItemsPerBin); //chooses which item in the bin
+        int itemIndex = randomDecider.Next(totalItemsPerBin); //chooses which item in the bin
         int offsetHeight = randomDecider.Next(10,13);
 
         if (itemType == 0)
         {
             //change to bonus later on
-            itemFrom = "bonus";
-            itemIndex = "heartBonus";
+            itemFrom = bins[goToBin];
             itemTypeName = "heart";
+            spriteLocationEnding = "/bonus/heartBonus.png";
+
         } 
         else if(itemType > 0) 
         {
             //correct(+ve)
             itemFrom = bins[goToBin];
-            itemTypeName = "correct";
+            itemTypeName = "correct";            
+            spriteLocationEnding = "/" + itemFrom + "/" + itemIndex + ".png";
         }
         else if (itemType < 0)
         {
@@ -106,8 +100,9 @@ public class SpawnRandomPoint : MonoBehaviour
             //if we want an incorrect(-ve) itemType, the offset(mod(bin.Length)) chooses which bin the sprite is from
             itemFrom = bins[(goToBin + randomDecider.Next(1, binsLength)) % binsLength];
             itemTypeName = "incorrect";
+            spriteLocationEnding = "/" + itemFrom + "/" + itemIndex + ".png";
         }
-        instantiateRecyclingItem(new string[] { itemFrom, itemIndex }, new Vector2(itemsSpawnPositions[goToBin], offsetHeight), itemTypeName);
+        instantiateRecyclingItem(spriteLocationEnding, new Vector2(itemsSpawnPositions[goToBin], offsetHeight), itemTypeName);
     }
     
     public Sprite getRecyclingSprite(string FilePath)
@@ -128,13 +123,13 @@ public class SpawnRandomPoint : MonoBehaviour
 
     }
 
-    void instantiateRecyclingItem(string[] spriteLocationEnding, Vector2 itemsSpawnPosition, string itemTypeName)
+    void instantiateRecyclingItem(string spriteLocationEnding, Vector2 itemsSpawnPosition, string itemTypeName)
     {
         string recyclingItemsPath = Application.dataPath + "/Sprites/conveyorBeltMinigame/RecyclingItems";
         GameObject recycleItem = Instantiate(RecyclingPrefab, itemsSpawnPosition, Quaternion.identity);
-        recycleItem.GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(recyclingItemsPath + "/" + spriteLocationEnding[0] + "/" + spriteLocationEnding[1] + ".png");
+        recycleItem.GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(recyclingItemsPath + spriteLocationEnding);
         recycleItem.GetComponent<Rigidbody2D>().drag = (float)(2.0 + (5.0 * Math.Exp(-(0.02 * (double)score)))); // drag starts at 7(=5+2) goes to 2 and about a score of 100. Equation  = 2+5e^(-(0.02*score)^2), change score to be lower
-        recycleItem.GetComponent<SelfDestruct>().spriteLocationEnding = spriteLocationEnding;
+        //recycleItem.GetComponent<SelfDestruct>().spriteLocationEnding = spriteLocationEnding; // supposed to be an array
         recycleItem.name = itemTypeName;
     }
 
@@ -215,6 +210,7 @@ public class SpawnRandomPoint : MonoBehaviour
         {
             string previousHighScore = BFSaveSystem.LoadClass<string>("HS4");
             // to delete =======================
+            Debug.Log("testing sommet = " + previousHighScore+ " , load class might be broken");
             if (previousHighScore == null)
             {
                 previousHighScore = "0";
@@ -246,46 +242,6 @@ public class SpawnRandomPoint : MonoBehaviour
         }
     }
 
-    void createCorrectionPopups()
-    {        
-        for (int i = 0; i < correctionPosition.Length; i++)
-        {
-            GameObject correctionPopup = Instantiate(correctionPrefab, correctionPosition[i], Quaternion.identity);
-            correctionPopup.name = "Correction_" + i;
-            correctionPopup.SetActive(false);                       
-            correctionPopups[i] = correctionPopup;
-        }
-    }
-
-    public void showCorrection(string[] spriteLocationEnding)
-    {
-        if (correctionActive)
-        {
-            int corInd = 0;
-            bool foundSpace = false;
-
-            for (int i = 0; i < correctionPopupsActive.Length; i++)
-            {
-                if (foundSpace == false && correctionPopupsActive[i] == false)
-                {
-                    corInd = i;
-                    foundSpace = true;
-                }
-            }
-
-            correctionPopupsActive[corInd] = true;
-            correctionPopups[corInd].SetActive(true);
-            correctionPopups[corInd].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(Application.dataPath + "/Sprites/conveyorBeltMinigame/RecyclingItems" + "/" + spriteLocationEnding[0] + "/" + spriteLocationEnding[1] + ".png");
-            correctionPopups[corInd].transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = getRecyclingSprite(Application.dataPath + "/Sprites/conveyorBeltMinigame/" + spriteLocationEnding[0] + ".png");
-        }
-        
-    }
-
-    public void hideCorrection(string correctionName)
-    {
-        string[] nameSplit = correctionName.Split('_');
-        correctionPopupsActive[Int32.Parse(nameSplit[nameSplit.Length - 1])] = false;
-    }
 
 
 }
