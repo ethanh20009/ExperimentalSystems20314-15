@@ -7,6 +7,7 @@ public class SelfDestruct : MonoBehaviour
 {
     public GameObject correctPrefab;
     public GameObject incorrectPrefab;
+    public string[] spriteLocationEnding;
     SpawnRandomPoint spawnRandomPoint;
 
     void OnMouseDown()
@@ -24,6 +25,7 @@ public class SelfDestruct : MonoBehaviour
             GameObject result = Instantiate(incorrectPrefab, transform.position, Quaternion.identity);//remember you switched            
             Destroy(result, 1);            
             spawnRandomPoint.minusHearts();
+            spawnRandomPoint.showCorrection(spriteLocationEnding);
 
         }
         else if (gameObject.name == "incorrect")
