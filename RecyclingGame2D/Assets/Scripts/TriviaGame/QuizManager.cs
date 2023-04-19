@@ -61,20 +61,31 @@ public class QuizManager : MonoBehaviour
         score++;
         Score.text = score.ToString();
         correctPlayer.PlayRockCorrect();
-        StartCoroutine(BackToWhite(optionNum));
+        StartCoroutine(BackToWhite());
     }
 
     public void incorrect(int optionNum)
     {
         options[optionNum].GetComponent<Image>().color = Color.red;
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].GetComponent<AnswerScript>().isCorrect == true)
+            {
+                options[i].GetComponent<Image>().color = Color.green;
+            }
+        }
         incorrectPlayer.PlayRockIncorrect();
-        StartCoroutine(BackToWhite(optionNum));
+        StartCoroutine(BackToWhite());
     }
 
-    IEnumerator BackToWhite(int optionNum)
+    IEnumerator BackToWhite()
     {
         yield return new WaitForSeconds(2);
-        options[optionNum].GetComponent<Image>().color = Color.white;
+        //options[optionNum].GetComponent<Image>().color = Color.white;
+        for (int i = 0; i < options.Length; i++)
+        {
+            options[i].GetComponent<Image>().color = Color.white;
+        }
         QA.RemoveAt(currentQuestion);
         toggleButtons();
         generateQuestion();

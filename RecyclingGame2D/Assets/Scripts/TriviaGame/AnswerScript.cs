@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnswerScript : MonoBehaviour
 {
     public int optionNumber;
+    public int correctNumber;
     public bool isCorrect = false;
     public bool buttonEnabled = true;
     public QuizManager quizManager;
