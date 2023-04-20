@@ -156,6 +156,7 @@ public class CompostGameState : MonoBehaviour
     {
         CompostSavedData data = new CompostSavedData(highScore);
         BFSaveSystem.SaveClass(data, SAVELOCATION);
+        BFSaveSystem.SaveClass<string>(highScore.ToString(), "HS1");
         Debug.Log("Saved");
         Debug.Log(data.highScore);
     }
