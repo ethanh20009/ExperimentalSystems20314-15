@@ -30,6 +30,8 @@ public class SpawnRandomPoint : MonoBehaviour
     private int hearts;
     private int score = 0;
     private bool gameOver = false;
+    
+    
 
     public List<List<Sprite>> spriteList = new List<List<Sprite>>();
     public List<Sprite> food;

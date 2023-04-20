@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovableObjects : MonoBehaviour
 {
     public GameObject selectedObject;
+    private bool selected;
     Vector3 offset;
 
     void Update()
@@ -21,15 +22,16 @@ public class MovableObjects : MonoBehaviour
             {
                 selectedObject = targetObject.transform.gameObject;
                 offset = selectedObject.transform.position - mousePosition;
+                selected = true;
             }
         }
-        if (selectedObject.tag == "item" && selectedObject)
+        if (selectedObject.tag == "item" && selectedObject && selected)
         {
             selectedObject.transform.position = mousePosition + offset;
         }
         if (Input.GetMouseButtonUp(0) && selectedObject)
         {
-            selectedObject = null;
+            selected = false;
         }
     }
 }
