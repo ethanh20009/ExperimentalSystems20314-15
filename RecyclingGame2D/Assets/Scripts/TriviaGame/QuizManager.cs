@@ -90,13 +90,13 @@ public class QuizManager : MonoBehaviour
     public void incorrect(int optionNum)
     {
         options[optionNum].GetComponent<Image>().color = Color.red;
-        for (int i = 0; i < options.Length; i++)
-        {
-            if (options[i].GetComponent<AnswerScript>().isCorrect == true)
-            {
-                options[i].GetComponent<Image>().color = Color.green;
-            }
-        }
+        //for (int i = 0; i < options.Length; i++)
+        //{
+        //    if (options[i].GetComponent<AnswerScript>().isCorrect == true)
+        //    {
+        //        options[i].GetComponent<Image>().color = Color.green;
+        //    }
+        //}
         incorrectPlayer.PlayRockIncorrect();
         StartCoroutine(BackToWhite());
     }
