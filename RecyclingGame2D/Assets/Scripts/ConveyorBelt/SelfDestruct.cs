@@ -7,7 +7,7 @@ public class SelfDestruct : MonoBehaviour
 {
     public GameObject correctPrefab;
     public GameObject incorrectPrefab;
-    public string[] spriteLocationEnding;
+    public int[] spriteLocationEnding;
     SpawnRandomPoint spawnRandomPoint;
 
     void OnMouseDown()
