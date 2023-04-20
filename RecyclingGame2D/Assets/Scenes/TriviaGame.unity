@@ -847,7 +847,7 @@ MonoBehaviour:
   - {fileID: 736627366}
   - {fileID: 2089530549}
   - {fileID: 685415040}
-  exitButton: {fileID: 0}
+  exitButton: {fileID: 975385015}
   currentQuestion: 0
   score: 0
   correctPlayer: {fileID: 1262151136}
@@ -859,7 +859,7 @@ MonoBehaviour:
   Score: {fileID: 1926648101}
   finalScore: {fileID: 2042467076}
   HighScore: {fileID: 1551813781}
-  TimeLeft: 5
+  TimeLeft: 60
   TimerOn: 0
   TimerTxt: {fileID: 1579204304}
 --- !u!4 &605681125
@@ -1770,10 +1770,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e44853e1b2bf8544822d43b97203461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeLeft: 0
-  TimerOn: 0
-  quizManager: {fileID: 0}
-  TimerTxt: {fileID: 0}
+--- !u!1 &975385015 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9095435296084829813, guid: 10cc8dffccac6374ea5dd98145ecd6f3, type: 3}
+  m_PrefabInstance: {fileID: 182996843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1262151133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,10 +2068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e44853e1b2bf8544822d43b97203461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeLeft: 60
-  TimerOn: 1
-  quizManager: {fileID: 0}
-  TimerTxt: {fileID: 1579204304}
 --- !u!114 &1579204304
 MonoBehaviour:
   m_ObjectHideFlags: 0
