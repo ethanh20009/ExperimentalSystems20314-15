@@ -30,6 +30,10 @@ public class QuizManager : MonoBehaviour
     public Text finalScore;
     public Text HighScore;
 
+    public float TimeLeft = 60;
+    public bool TimerOn = false;
+    public Text TimerTxt;
+
     private void Start()
     {
         endScreenPanel.SetActive(false);
@@ -53,6 +57,25 @@ public class QuizManager : MonoBehaviour
         Score.text = score.ToString();
         buttonsEnabled = true;
         generateQuestion();
+        TimerOn = true;
+    }
+
+    void Update()
+    {
+        if (TimerOn)
+        {
+            if (TimeLeft > 0)
+            {
+                TimeLeft -= Time.deltaTime;
+                updateTimer(TimeLeft);
+            }
+            else
+            {
+                TimeLeft = 0;
+                TimerOn = false;
+                endScreen();
+            }
+        }
     }
 
     public void correct(int optionNum)
@@ -81,7 +104,6 @@ public class QuizManager : MonoBehaviour
     IEnumerator BackToWhite()
     {
         yield return new WaitForSeconds(2);
-        //options[optionNum].GetComponent<Image>().color = Color.white;
         for (int i = 0; i < options.Length; i++)
         {
             options[i].GetComponent<Image>().color = Color.white;
@@ -137,7 +159,16 @@ public class QuizManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    void endScreen()
+    void updateTimer(float currentTime)
+    {
+        currentTime += 1;
+        float minutes = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+
+        TimerTxt.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    }
+
+    public void endScreen()
     {
         gamePanel.SetActive(false);
         endScreenPanel.SetActive(true);
@@ -145,6 +176,8 @@ public class QuizManager : MonoBehaviour
         if (File.Exists(Application.persistentDataPath + "/HS3.fun"))
         {
             savedScore = BFSaveSystem.LoadClass<string>("HS3");
+            Debug.Log("Hello");
+            Debug.Log(savedScore);
         }
         else
         {
