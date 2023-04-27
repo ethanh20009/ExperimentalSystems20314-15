@@ -210,27 +210,17 @@ public class SpawnRandomPoint : MonoBehaviour
 
     void save()
     {
-        if (File.Exists(Application.persistentDataPath + "/HS4.fun"))
+        
+        string previousHighScore = BFSaveSystem.LoadClass<string>("HS4");
+        if (previousHighScore == null)
         {
-            string previousHighScore = BFSaveSystem.LoadClass<string>("HS4");
-            // to delete =======================
-            //if (previousHighScore == null)
-            //{
-            //    previousHighScore = "0";
-            //}
-            //================================
-            gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = previousHighScore;
-            if (Int32.Parse(previousHighScore) < score)
-            {
-                BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
-            }
+            previousHighScore = "0";
         }
-        else
+        gameOverScreen.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = previousHighScore;
+        if (int.Parse(previousHighScore) < score)
         {
             BFSaveSystem.SaveClass<string>(score.ToString(), "HS4");
-
         }
-       
     }
 
     void disableGuide()
